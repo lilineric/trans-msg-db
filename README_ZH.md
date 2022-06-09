@@ -33,5 +33,6 @@
 
 ## 设计
 服务以 Jar 包方式提供，通过生产端和消费端两个注解拦截器来进行事务的注册和提交，除了需要在业务数据库中新建消息表，在代码层对业务基本没有侵入。
+在 trans-msg-db 的设计中，数据库操作、MQ 消息推送和订阅、事务注册配置等功能都是以插件的形式提供，通过 SPI（Service Provider Interface） 注入的方式完成的。这意味这替换掉默认的插件实现，可以支持任意数据库、MQ。同样的，事务注册的配置信息既可以使用配置文件，也可以存放在数据库中，更推荐的方式是将配置放在配置中心（比如 Apollo、Nacos 等）。
 ![流程](https://github.com/lilineric/trans-msg-db/blob/main/img/trans-msg-db.png)
 所有后台服务都和业务服务运行在同一个 Java 进程中。
