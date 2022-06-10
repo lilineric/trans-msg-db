@@ -5,6 +5,49 @@
 
 适用于对资源隔离性没有要求的异步场景。
 
+## 快速开始
+### Spring Boot 项目
+### 非 Spring 项目
+使用 aspectj-maven-plugin，配置参考[官方文档](https://www.mojohaus.org/aspectj-maven-plugin/examples/weaveJars.html)
+
+例如：
+```xml
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.14.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <complianceLevel>${java.version}</complianceLevel>
+                    <skip>true</skip>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <weaveDependencies>
+                        <weaveDependency>
+                            <groupId>com.cellulam</groupId>
+                            <artifactId>trans-msg-db-core</artifactId>
+                        </weaveDependency>
+                    </weaveDependencies>
+                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                        <goals>
+                            <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
+                            <goal>test-compile</goal>  <!-- use this goal to weave all your test classes -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+```
+
 ## 流程
 ### 订单业务
 我们简化一下订单流程，假设下单成功后需要给用户赠送积分及优惠券：
