@@ -7,8 +7,44 @@
 
 ## 快速开始
 ### Spring Boot 项目
+引入依赖
+```xml
+<dependency>
+    <groupId>com.cellulam</groupId>
+    <artifactId>trans-msg-db-spring-starter</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+生产方添加注解:
+```java
+@Transactional
+@TransMsgProducer
+public void produce() {
+    ...
+}
+```
+消费方添加注解:
+```java
+@TransMsgConsumer
+public void consume() {
+    ...
+}
+```
+
 ### 非 Spring 项目
-使用 aspectj-maven-plugin，配置参考[官方文档](https://www.mojohaus.org/aspectj-maven-plugin/examples/weaveJars.html)
+暂时还没有做开箱即用的集成，需要自己编写拦截器，继承`TransMsgProducerInterceptor`和`TransMsgConsumerInterceptor`，并且需要实现本地事务管理，在`TransMsgProducerInterceptor`拦截器执行之前开启本地事务。
+
+下面是参考步骤：
+#### 引入依赖
+```xml
+<dependency>
+    <groupId>com.cellulam</groupId>
+    <artifactId>trans-msg-db-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+#### 编织 trans-msg-db-core
+使用 aspectj-maven-plugin编织，配置参考[官方文档](https://www.mojohaus.org/aspectj-maven-plugin/examples/weaveJars.html)
 
 例如：
 ```xml

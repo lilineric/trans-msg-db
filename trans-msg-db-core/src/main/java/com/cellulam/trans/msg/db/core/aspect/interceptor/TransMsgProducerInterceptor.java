@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.interceptor;
+package com.cellulam.trans.msg.db.core.aspect.interceptor;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @date 2022-06-09 21:53
  */
 @Aspect
-public class TransMsgProducerInterceptor {
+public abstract class TransMsgProducerInterceptor {
     private Logger log = LoggerFactory.getLogger(TransMsgProducerInterceptor.class);
 
     @Pointcut("@annotation(com.cellulam.trans.msg.db.facade.anotation.TransMsgProducer)")
@@ -23,7 +23,7 @@ public class TransMsgProducerInterceptor {
 
     @Around("transMsgProducerPointcut()")
     public Object interceptTransMsgProducer(ProceedingJoinPoint pjp) throws Throwable {
-        log.info("interceptTransMsgProducer");
-        return pjp.proceed();
+        Object result = pjp.proceed();
+        return result;
     }
 }

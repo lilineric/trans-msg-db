@@ -27,12 +27,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-spring</artifactId>
+                <artifactId>trans-msg-db-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-core</artifactId>
+                <artifactId>trans-msg-db-facade</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
