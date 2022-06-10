@@ -10,6 +10,8 @@
     <modules>
         <module>trans-msg-db-core</module>
         <module>trans-msg-db-facade</module>
+        <module>trans-msg-db-sample</module>
+        <module>trans-msg-db-spring</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -25,7 +27,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-facade</artifactId>
+                <artifactId>trans-msg-db-spring</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cellulam</groupId>
+                <artifactId>trans-msg-db-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
@@ -46,12 +53,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.36</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.24</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/junit/junit -->
             <dependency>

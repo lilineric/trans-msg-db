@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cellulam.trans.msg.db.sample.order.dao.OrderDao">
+    <resultMap id="ResultMap" type="com.cellulam.trans.msg.db.sample.order.po.OrderBean">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="uid" jdbcType="BIGINT" property="uid" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="amount" jdbcType="BIGINT" property="amount" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    </resultMap>
+
+    <insert id="insertOrder" parameterType="com.cellulam.trans.msg.db.sample.order.po.OrderBean"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert t_order (uid, title, amount, status) value (#{uid}, #{title}, #{amount}, #{status})
+    </insert>
+
+    <update id="updateStatus" parameterType="map">
+        update t_order set status = #{status} where id = #{id}
+    </update>
+
+</mapper>
+

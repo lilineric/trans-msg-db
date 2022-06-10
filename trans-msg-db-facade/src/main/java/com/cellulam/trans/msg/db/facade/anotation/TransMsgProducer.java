@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.facade.anotations;
+package com.cellulam.trans.msg.db.facade.anotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
