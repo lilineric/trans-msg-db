@@ -1,9 +1,14 @@
 package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 
+import com.cellulam.trans.msg.db.core.exceptions.TransMessageConfigurationException;
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
+import com.cellulam.trans.msg.db.core.message.model.TransMessage;
+import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
 
 /**
  * @author eric.li
@@ -31,7 +36,23 @@ public class RabbitMQMessageProvider implements MessageProviderSPI {
 
     @Override
     public void start() {
+        this.checkStatus();
+
         //TODO listen MQ success and invoke messageProcessor
+        TransMessage message = new TransMessage();
+
+        TransMessageHeader header = new TransMessageHeader();
+        header.setTransId(UUID.randomUUID().toString());
+
+        message.setHeader(header);
+        message.setBody("test process message");
+        this.messageProcessor.process(message);
+    }
+
+    private void checkStatus() {
+        if (this.messageProcessor == null) {
+            throw new TransMessageConfigurationException("The messageProcessor is unregistered.");
+        }
     }
 
     @Override

@@ -9,5 +9,5 @@ import java.io.Serializable;
  * @date 2022-06-11 19:19
  */
 public interface MessageProcessor {
-    <T extends Serializable> Boolean process(TransMessage<T> message);
+    <T extends Serializable> boolean process(TransMessage<T> message);
 }
