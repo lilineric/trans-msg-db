@@ -15,9 +15,9 @@ import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
 public interface MessageProviderSPI extends TypeSPI {
     /**
      * register message processor
-     * @param receiver
+     * @param processor
      */
-    void registerMessageProcessor(MessageProcessor receiver);
+    void registerMessageProcessor(MessageProcessor processor);
 
     /**
      * get message sender

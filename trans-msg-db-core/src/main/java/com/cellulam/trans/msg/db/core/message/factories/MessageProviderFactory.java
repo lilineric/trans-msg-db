@@ -1,8 +1,7 @@
 package com.cellulam.trans.msg.db.core.message.factories;
 
 import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
-import com.cellulam.trans.msg.db.spi.InstanceServiceLoader;
-import com.cellulam.trans.msg.db.spi.exceptions.ServiceProviderNotFoundException;
+import com.cellulam.trans.msg.db.spi.SingletonTypeSPIInstanceFactory;
 
 import java.util.Collection;
 
@@ -13,8 +12,9 @@ import java.util.Collection;
  * @date 2022-06-11 00:13
  */
 public abstract class MessageProviderFactory {
+
     static {
-        InstanceServiceLoader.register(MessageProviderSPI.class);
+        SingletonTypeSPIInstanceFactory.register(MessageProviderSPI.class);
     }
 
     /**
@@ -24,16 +24,7 @@ public abstract class MessageProviderFactory {
      * @return instance
      */
     public static MessageProviderSPI getInstance(final String type) {
-        return getRegisteredService(type);
-    }
-
-    private static MessageProviderSPI getRegisteredService(String type) {
-        for (MessageProviderSPI instance : InstanceServiceLoader.getServiceInstances(MessageProviderSPI.class)) {
-            if (instance.getType().equalsIgnoreCase(type)) {
-                return instance;
-            }
-        }
-        throw new ServiceProviderNotFoundException(MessageProviderSPI.class, type);
+        return SingletonTypeSPIInstanceFactory.getInstance(type, MessageProviderSPI.class);
     }
 
     /**
@@ -42,6 +33,6 @@ public abstract class MessageProviderFactory {
      * @return instances
      */
     public static Collection<MessageProviderSPI> getInstances() {
-        return InstanceServiceLoader.getServiceInstances(MessageProviderSPI.class);
+        return SingletonTypeSPIInstanceFactory.getInstances(MessageProviderSPI.class);
     }
 }

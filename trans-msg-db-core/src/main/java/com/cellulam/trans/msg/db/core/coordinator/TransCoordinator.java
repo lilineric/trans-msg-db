@@ -3,6 +3,7 @@ package com.cellulam.trans.msg.db.core.coordinator;
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageSendException;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
+import com.cellulam.trans.msg.db.core.message.factories.MessageSenderFactory;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class TransCoordinator {
     private final ExecutorService messageSendThreadPool;
 
     private TransCoordinator() {
-        this.messageSender = TransContext.context.getMessageSender();
+        this.messageSender = MessageSenderFactory.getInstance(TransContext.context.getProperties().getMessageProviderType());
         this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.context.getProperties().getMessageSendThreadPoolSize());
     }
 

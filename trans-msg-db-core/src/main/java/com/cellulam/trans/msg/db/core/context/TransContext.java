@@ -2,9 +2,6 @@ package com.cellulam.trans.msg.db.core.context;
 
 import com.cellulam.trans.msg.db.core.conf.TransConfiguration;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageConfigurationException;
-import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.message.factories.MessageProviderFactory;
-import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,9 +19,6 @@ public class TransContext {
 
     private TransConfiguration properties;
 
-    private MessageProviderSPI messageProviderSPI;
-    private MessageSender messageSender;
-
     public final static TransContext context = new TransContext();
 
     public static boolean isInitiated() {
@@ -34,16 +28,6 @@ public class TransContext {
     public TransConfiguration getProperties() {
         checkStatus();
         return properties;
-    }
-
-    public MessageProviderSPI getMessageProviderSPI() {
-        checkStatus();
-        return messageProviderSPI;
-    }
-
-    public MessageSender getMessageSender() {
-        checkStatus();
-        return messageSender;
     }
 
     private void checkStatus() {
@@ -58,12 +42,6 @@ public class TransContext {
         }
         context.properties = transProperties;
         log.info("Loaded properties: {}", transProperties);
-
-        context.messageProviderSPI = MessageProviderFactory.getInstance(transProperties.getMessageProviderType());
-        log.info("Loaded messageProviderSPI: {}", context.messageProviderSPI.getClass().getName());
-
-        context.messageSender = context.messageProviderSPI.getMessageSender();
-        log.info("Loaded messageSender: {}", context.messageSender.getClass().getName());
 
         initiated = true;
     }
