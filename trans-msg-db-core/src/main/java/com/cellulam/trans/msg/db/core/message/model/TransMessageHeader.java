@@ -1,7 +1,6 @@
 package com.cellulam.trans.msg.db.core.message.model;
 
 import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -10,7 +9,6 @@ import java.io.Serializable;
  * @date 2022-06-11 19:16
  */
 @Data
-@ToString
 public class TransMessageHeader implements Serializable {
     private static final long serialVersionUID = -6480435843578975489L;
 
