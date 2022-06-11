@@ -12,7 +12,7 @@
     <artifactId>trans-msg-db-plugins</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>trans-msg-db-spring-rabbitmq</module>
+        <module>trans-msg-db-rabbitmq</module>
     </modules>
 
 

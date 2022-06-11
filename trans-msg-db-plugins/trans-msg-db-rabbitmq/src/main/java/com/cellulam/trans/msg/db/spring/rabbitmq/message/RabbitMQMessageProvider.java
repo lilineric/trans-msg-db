@@ -1,6 +1,6 @@
 package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 
-import com.cellulam.trans.msg.db.core.message.MessageReceiver;
+import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class RabbitMQMessageProvider implements MessageProviderSPI {
-    private MessageReceiver messageReceiver;
+    private MessageProcessor messageProcessor;
 
     private RabbitMQSender messageSender;
 
@@ -20,13 +20,18 @@ public class RabbitMQMessageProvider implements MessageProviderSPI {
     }
 
     @Override
-    public void registerMessageReceiver(MessageReceiver receiver) {
-        this.messageReceiver = receiver;
+    public void registerMessageProcessor(MessageProcessor processor) {
+        this.messageProcessor = processor;
     }
 
     @Override
     public MessageSender getMessageSender() {
         return this.messageSender;
+    }
+
+    @Override
+    public void start() {
+        //TODO listen MQ success and invoke messageProcessor
     }
 
     @Override
