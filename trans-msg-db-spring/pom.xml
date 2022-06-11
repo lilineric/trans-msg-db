@@ -15,6 +15,7 @@
         <module>trans-msg-db-spring-project</module>
         <module>trans-msg-db-spring-starter</module>
         <module>trans-msg-db-spring-autoconfigure</module>
+        <module>trans-msg-db-spring-interceptor-autoconfigure</module>
     </modules>
 
     <dependencyManagement>

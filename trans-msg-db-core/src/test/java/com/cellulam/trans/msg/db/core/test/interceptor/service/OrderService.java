@@ -1,6 +1,5 @@
 package com.cellulam.trans.msg.db.core.test.interceptor.service;
 
-import com.cellulam.trans.msg.db.facade.anotation.TransMsgProducer;
 
 /**
  * @author eric.li
@@ -8,7 +7,6 @@ import com.cellulam.trans.msg.db.facade.anotation.TransMsgProducer;
  */
 public class OrderService {
 
-    @TransMsgProducer
     public void test() {
         System.out.println("test");
     }

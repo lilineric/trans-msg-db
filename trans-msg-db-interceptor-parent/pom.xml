@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>trans-msg-db-parent</artifactId>
+        <groupId>com.cellulam</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>trans-msg-db-interceptor-parent</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>trans-msg-db-interceptor-spi</module>
+        <module>trans-msg-db-interceptor</module>
+        <module>trans-msg-db-interceptor-rabbitmq</module>
+    </modules>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+
+</project>

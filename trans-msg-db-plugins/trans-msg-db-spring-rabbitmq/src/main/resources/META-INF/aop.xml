@@ -1,0 +1,9 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver options="-verbose">
+        <include within="java.math.*" />
+    </weaver>
+    <aspects>
+        <aspect name="com.cellulam.trans.msg.db.spring.rabbitmq.interceptor.RabbitMQProducerInterceptor" />
+    </aspects>
+</aspectj>

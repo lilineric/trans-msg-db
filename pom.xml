@@ -12,6 +12,9 @@
         <module>trans-msg-db-facade</module>
         <module>trans-msg-db-sample</module>
         <module>trans-msg-db-spring</module>
+        <module>trans-msg-db-spi</module>
+        <module>trans-msg-db-interceptor-parent</module>
+        <module>trans-msg-db-plugins</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -32,7 +35,22 @@
             </dependency>
             <dependency>
                 <groupId>com.cellulam</groupId>
+                <artifactId>trans-msg-db-spi</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cellulam</groupId>
                 <artifactId>trans-msg-db-facade</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cellulam</groupId>
+                <artifactId>trans-msg-db-interceptor-spi</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cellulam</groupId>
+                <artifactId>trans-msg-db-interceptor</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
