@@ -5,7 +5,7 @@ import com.cellulam.trans.msg.db.core.conf.TransMsgInitializer;
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageConfigurationException;
 import com.cellulam.trans.msg.db.spi.exceptions.ServiceProviderNotFoundException;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class TransMsgInitializerTest {
 
-    @After
+    @Before
     public void before() throws NoSuchFieldException, IllegalAccessException {
         Field field = TransContext.context.getClass().getDeclaredField("initiated");
         field.setAccessible(true);
