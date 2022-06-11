@@ -4,8 +4,6 @@ import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.Serializable;
-
 /**
  * @author eric.li
  * @date 2022-06-11 19:46
@@ -14,7 +12,7 @@ import java.io.Serializable;
 public class RabbitMQSender implements MessageSender {
 
     @Override
-    public <T extends Serializable> String send(TransMessage<T> message) {
+    public String send(TransMessage message) {
         log.info("Message send to RabbitMQ: {}", message);
         return message.getHeader().getTransId();
     }

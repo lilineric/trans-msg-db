@@ -1,8 +1,7 @@
 package com.cellulam.trans.msg.db.core.message;
 
+import com.cellulam.trans.msg.db.core.coordinator.TransCoordinator;
 import com.cellulam.trans.msg.db.core.message.factories.MessageSenderFactory;
-import com.cellulam.trans.msg.db.core.message.model.TransMessage;
-import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -19,14 +18,9 @@ public class TransMessageSender {
     }
 
     public <T extends Serializable> String send(T body) {
-        TransMessage<T> message = new TransMessage<>();
-
-        TransMessageHeader header = new TransMessageHeader();
-        header.setTransId(UUID.randomUUID().toString());
-
-        message.setHeader(header);
-        message.setBody(body);
-
-        return this.messageSender.send(message);
+        String transId = UUID.randomUUID().toString();
+        //TODO insert message_trans to DB
+        TransCoordinator.instance.asyncCommit(messageSender, transId, body);
+        return transId;
     }
 }
