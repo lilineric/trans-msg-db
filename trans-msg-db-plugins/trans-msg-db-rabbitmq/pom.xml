@@ -12,10 +12,6 @@
     <artifactId>trans-msg-db-rabbitmq</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <spring.boot.version>2.6.3</spring.boot.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.cellulam</groupId>

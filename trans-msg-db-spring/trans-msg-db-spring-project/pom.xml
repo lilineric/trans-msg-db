@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <properties>
-        <spring.version>5.3.15</spring.version>
+        <spring.boot.version>2.6.3</spring.boot.version>
     </properties>
 
     <artifactId>trans-msg-db-spring</artifactId>
@@ -20,21 +20,9 @@
             <artifactId>trans-msg-db-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <scope>compile</scope>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <scope>compile</scope>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
         <dependency>

@@ -1,5 +1,6 @@
 package com.cellulam.trans.msg.db.core.coordinator;
 
+import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageSendException;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
@@ -18,19 +19,23 @@ import java.util.concurrent.Executors;
  */
 @Slf4j
 public class TransCoordinator {
+
+    private final MessageSender messageSender;
+
+    private final ExecutorService messageSendThreadPool;
+
     private TransCoordinator() {
-
+        this.messageSender = TransContext.context.getMessageSender();
+        this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.context.getProperties().getMessageSendThreadPoolSize());
     }
-
-    private ExecutorService messageSendThreadPool = Executors.newFixedThreadPool(5);
 
     public final static TransCoordinator instance = new TransCoordinator();
 
-    public <T extends Serializable> void asyncCommit(MessageSender sender, String transId, T body) {
-        messageSendThreadPool.execute(() -> this.commit(sender, transId, body));
+    public <T extends Serializable> void asyncCommit(String transId, T body) {
+        messageSendThreadPool.execute(() -> this.commit(transId, body));
     }
 
-    private <T extends Serializable> void commit(MessageSender sender, String transId, T body) {
+    private <T extends Serializable> void commit(String transId, T body) {
         try {
             TransMessage message = new TransMessage();
 
@@ -40,15 +45,15 @@ public class TransCoordinator {
             message.setHeader(header);
             message.setBody(body);
 
-            this.sendMessage(sender, message);
+            this.sendMessage(message);
         } catch (Exception e) {
-            log.error(String.format("Failed to commit, sender: %s, transId: %s", sender.toString(), transId), e);
+            log.error(String.format("Failed to commit,  transId: %s", transId), e);
         }
     }
 
-    private void sendMessage(MessageSender sender, TransMessage message) {
+    private void sendMessage(TransMessage message) {
         try {
-            sender.send(message);
+            this.messageSender.send(message);
         } catch (Exception e) {
             throw new TransMessageSendException("Failed to send message: " + message, e);
         }
