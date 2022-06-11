@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.aspect.recovery;
+package com.cellulam.trans.msg.db.core.recovery;
 
 /**
  * @author eric.li

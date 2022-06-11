@@ -14,21 +14,17 @@
     <dependencies>
         <dependency>
             <groupId>com.cellulam</groupId>
-            <artifactId>trans-msg-db-facade</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cellulam</groupId>
             <artifactId>trans-msg-db-spi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cellulam</groupId>
-            <artifactId>trans-msg-db-interceptor</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>

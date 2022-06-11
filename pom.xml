@@ -9,12 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>trans-msg-db-core</module>
-        <module>trans-msg-db-facade</module>
-        <module>trans-msg-db-sample</module>
-        <module>trans-msg-db-spring</module>
         <module>trans-msg-db-spi</module>
-        <module>trans-msg-db-interceptor-parent</module>
         <module>trans-msg-db-plugins</module>
+        <module>trans-msg-db-spring</module>
+        <module>trans-msg-db-sample</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -38,21 +36,6 @@
                 <artifactId>trans-msg-db-spi</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-facade</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-interceptor-spi</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.cellulam</groupId>
-                <artifactId>trans-msg-db-interceptor</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
             <!-- https://mvnrepository.com/artifact/aspectj/aspectjrt -->
             <dependency>
                 <groupId>org.aspectj</groupId>
@@ -65,6 +48,11 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.9.9.1</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
             <dependency>
@@ -81,17 +69,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <distributionManagement>
-        <repository>
-            <id>github-release-deploy</id>
-            <url>https://maven.pkg.github.com/lilineric/maven-repo-release</url>
-        </repository>
-        <snapshotRepository>
-            <id>github-snapshot-deploy</id>
-            <url>https://maven.pkg.github.com/lilineric/maven-repo-snapshot</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <build>
         <plugins>
@@ -117,7 +94,20 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
 
 </project>

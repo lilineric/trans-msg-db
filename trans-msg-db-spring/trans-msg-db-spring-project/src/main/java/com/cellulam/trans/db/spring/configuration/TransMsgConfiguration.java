@@ -1,5 +1,7 @@
 package com.cellulam.trans.db.spring.configuration;
 
+import com.cellulam.trans.msg.db.core.message.TransMessageSender;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -12,5 +14,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class TransMsgConfiguration {
+
+    @Bean
+    public TransMessageSender transMessageSender() {
+        return new TransMessageSender("RabbitMQ");
+    }
 
 }
