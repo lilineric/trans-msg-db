@@ -14,4 +14,10 @@ public class TransMessageProcessor implements MessageProcessor {
         log.info("process message: {}", message);
         return true;
     }
+
+    @Override
+    public boolean receiveACK(String transType, String transId) {
+        log.info("receive ack");
+        return true;
+    }
 }

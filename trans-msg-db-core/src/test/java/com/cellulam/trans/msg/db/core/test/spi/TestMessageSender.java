@@ -16,4 +16,9 @@ public class TestMessageSender implements MessageSender {
     public void send(String transType, byte[] message) {
         System.out.println(transType + " send message " + message);
     }
+
+    @Override
+    public void ack(String transType, String transId) {
+        System.out.println(transType + " ACK, transId: " + transId);
+    }
 }
