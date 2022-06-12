@@ -3,8 +3,6 @@ package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageConfigurationException;
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.message.model.TransMessage;
-import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,14 +37,10 @@ public class RabbitMQMessageProvider implements MessageProviderSPI {
         this.checkStatus();
 
         //TODO listen MQ success and invoke messageProcessor
-        TransMessage message = new TransMessage();
+        this.messageProcessor.process("test process message");
 
-        TransMessageHeader header = new TransMessageHeader();
-        header.setTransId(UUID.randomUUID().toString());
-
-        message.setHeader(header);
-        message.setBody("test process message");
-        this.messageProcessor.process(message);
+        //TODO listen ACK message and invoke ack
+        this.messageProcessor.receiveACK("order-success", UUID.randomUUID().toString());
     }
 
     private void checkStatus() {

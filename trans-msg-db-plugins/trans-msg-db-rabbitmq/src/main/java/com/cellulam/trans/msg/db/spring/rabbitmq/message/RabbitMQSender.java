@@ -19,4 +19,9 @@ public class RabbitMQSender implements MessageSender {
     public void send(String transType, byte[] message) {
         log.info("{} message send to RabbitMQ: {}", transType, message);
     }
+
+    @Override
+    public void ack(String transType, String transId) {
+        log.info("{} ACK: {}", transId, transId);
+    }
 }
