@@ -5,7 +5,7 @@ import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
-import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.message.spi;
+package com.cellulam.trans.msg.db.core.spi;
 
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;

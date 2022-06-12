@@ -3,7 +3,7 @@ package com.cellulam.trans.msg.db.core.coordinator;
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageSendException;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.message.factories.MessageSenderFactory;
+import com.cellulam.trans.msg.db.core.factories.MessageSenderFactory;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import lombok.extern.slf4j.Slf4j;

@@ -2,8 +2,8 @@ package com.cellulam.trans.msg.db.core.conf;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.message.TransMessageProcessor;
-import com.cellulam.trans.msg.db.core.message.factories.MessageProviderFactory;
-import com.cellulam.trans.msg.db.core.message.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
+import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
 
 /**
  * initializer

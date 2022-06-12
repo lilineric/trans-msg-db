@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.message.factories;
+package com.cellulam.trans.msg.db.core.factories;
 
 import com.cellulam.trans.msg.db.core.message.MessageSender;
 
