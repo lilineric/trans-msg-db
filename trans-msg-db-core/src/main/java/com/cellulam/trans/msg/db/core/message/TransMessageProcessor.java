@@ -1,9 +1,6 @@
 package com.cellulam.trans.msg.db.core.message;
 
-import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.Serializable;
 
 /**
  * @author eric.li
@@ -11,8 +8,9 @@ import java.io.Serializable;
  */
 @Slf4j
 public class TransMessageProcessor implements MessageProcessor {
+
     @Override
-    public <T extends Serializable> boolean process(TransMessage<T> message) {
+    public boolean process(String message) {
         log.info("process message: {}", message);
         return true;
     }

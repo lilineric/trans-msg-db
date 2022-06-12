@@ -2,11 +2,7 @@ package com.cellulam.trans.msg.db.core.test.spi;
 
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.message.model.TransMessage;
-import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
-
-import java.util.UUID;
 
 /**
  * @author eric.li
@@ -28,15 +24,7 @@ public class TestMessageProviderSPI implements MessageProviderSPI {
 
     @Override
     public void start() {
-
-        TransMessage message = new TransMessage();
-
-        TransMessageHeader header = new TransMessageHeader();
-        header.setTransId(UUID.randomUUID().toString());
-
-        message.setHeader(header);
-        message.setBody("test process message");
-        this.messageProcessor.process(message);
+        this.messageProcessor.process("test");
     }
 
     @Override
