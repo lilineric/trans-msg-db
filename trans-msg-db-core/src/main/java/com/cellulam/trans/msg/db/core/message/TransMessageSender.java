@@ -20,13 +20,14 @@ public class TransMessageSender {
     private UidGeneratorSPI uidGeneratorSPI = UidGeneratorFactory.getInstance(TransContext.getConfiguration().getUidGeneratorType());
     private SerializeSPI serializeSPI = SerializeFactory.getInstance(TransContext.getConfiguration().getSerializeType());
 
-    public <T extends Serializable> String send(T body) {
+    public <T extends Serializable> String send(String transType, T body) {
         TransMessage message = new TransMessage();
 
         String transId = uidGeneratorSPI.nextId();
 
         TransMessageHeader header = new TransMessageHeader();
         header.setTransId(transId);
+        header.setTransType(transType);
 
         message.setHeader(header);
         message.setBody(body);
@@ -34,9 +35,10 @@ public class TransMessageSender {
         String serializedMessage = serializeSPI.serialize(message);
 
         TransRepository.instance.insertTransMessage(TransContext.getConfiguration().getAppName(),
+                transType,
                 transId,
                 serializedMessage);
-        TransCoordinator.instance.asyncCommit(serializedMessage);
+        TransCoordinator.instance.asyncCommit(transType, serializedMessage);
         return header.getTransId();
     }
 }

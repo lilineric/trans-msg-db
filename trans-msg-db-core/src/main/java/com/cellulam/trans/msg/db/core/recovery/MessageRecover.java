@@ -37,12 +37,20 @@ public class MessageRecover {
                 if (!TransRepository.instance.tryExecute(trans)) {
                     throw new TransMessageRecoverException("Failed to try to execute trans: " + trans);
                 }
-                TransCoordinator.instance.commit(trans.getTransMessage());
+                this.messageTransRecover(trans);
             } catch (Exception e) {
                 log.error("Failed to commit trans message, trans: " + trans, e);
                 this.resetTransStatus(trans);
             }
         });
+    }
+
+    private void messageTransRecover(Transaction trans) {
+        if (BranchTransRegister.instance.registerBranchTrans(trans)) {
+            TransCoordinator.instance.commit(trans.getTransType(), trans.getTransMessage());
+        } else {
+            log.warn("Failed to register branch trans, ignore the trans: " + trans);
+        }
     }
 
     private void resetTransStatus(Transaction trans) {

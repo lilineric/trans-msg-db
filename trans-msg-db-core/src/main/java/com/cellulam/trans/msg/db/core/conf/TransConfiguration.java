@@ -21,6 +21,8 @@ public class TransConfiguration {
     private String repositoryType;
     @NonNull
     private String serializeType;
+    @NonNull
+    private String dynamicConfigType;
 
     @Builder.Default
     private String uidGeneratorType = "uuid";

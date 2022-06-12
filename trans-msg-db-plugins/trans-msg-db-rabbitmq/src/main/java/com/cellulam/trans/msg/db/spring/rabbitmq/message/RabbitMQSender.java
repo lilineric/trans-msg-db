@@ -11,12 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 public class RabbitMQSender implements MessageSender {
 
     @Override
-    public void send(String message) {
-        log.info("Message send to RabbitMQ: {}", message);
+    public void send(String transType, String message) {
+        log.info("{} message send to RabbitMQ: {}", transType, message);
     }
 
     @Override
-    public void send(byte[] message) {
-        log.info("Message send to RabbitMQ: {}", message);
+    public void send(String transType, byte[] message) {
+        log.info("{} message send to RabbitMQ: {}", transType, message);
     }
 }

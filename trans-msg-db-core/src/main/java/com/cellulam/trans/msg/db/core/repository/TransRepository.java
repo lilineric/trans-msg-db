@@ -1,6 +1,7 @@
 package com.cellulam.trans.msg.db.core.repository;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
+import com.cellulam.trans.msg.db.core.enums.TransStatus;
 import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
 import com.cellulam.trans.msg.db.core.repository.model.Transaction;
 import com.cellulam.trans.msg.db.core.spi.RepositorySPI;
@@ -19,8 +20,12 @@ public class TransRepository {
 
     public final static TransRepository instance = new TransRepository();
 
-    public void insertTransMessage(String producer, String transId, String transMessage) {
-        repositorySPI.insertTransMessage(producer, transId, transMessage);
+    public void registerBranchTrans(String consumer, Transaction trans) {
+        repositorySPI.registerBranchTrans(consumer, trans);
+    }
+
+    public void insertTransMessage(String producer, String transType, String transId, String transMessage) {
+        repositorySPI.insertTransMessage(producer, transType, transId, transMessage);
     }
 
     public void processSendingTrans(Consumer<Transaction> executor) {
@@ -33,5 +38,9 @@ public class TransRepository {
 
     public void resetStatus(Transaction trans) {
         repositorySPI.resetStatus(trans);
+    }
+
+    public void finishTrans(Transaction trans, TransStatus status) {
+        repositorySPI.finishTrans(trans, status);
     }
 }

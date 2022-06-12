@@ -35,6 +35,6 @@ public class OrderService {
         ThreadUtils.sleep(1000);
         orderDao.updateStatus(order.getId(), OrderStatus.SUCCESS.name());
 
-        transMessageSender.send(order);
+        transMessageSender.send("order-success", order);
     }
 }

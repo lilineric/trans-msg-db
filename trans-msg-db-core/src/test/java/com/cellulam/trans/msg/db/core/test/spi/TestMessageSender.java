@@ -8,12 +8,12 @@ import com.cellulam.trans.msg.db.core.message.MessageSender;
  */
 public class TestMessageSender implements MessageSender {
     @Override
-    public void send(String message) {
-        System.out.println("send message " + message);
+    public void send(String transType, String message) {
+        System.out.println(transType + " send message " + message);
     }
 
     @Override
-    public void send(byte[] message) {
-        System.out.println("send message " + message);
+    public void send(String transType, byte[] message) {
+        System.out.println(transType + " send message " + message);
     }
 }

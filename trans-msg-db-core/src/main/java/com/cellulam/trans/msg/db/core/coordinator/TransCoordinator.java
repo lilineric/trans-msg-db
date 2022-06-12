@@ -34,8 +34,8 @@ public class TransCoordinator {
      *
      * @param transMessage
      */
-    public void asyncCommit(String transMessage) {
-        messageSendThreadPool.execute(() -> this.commit(transMessage));
+    public void asyncCommit(String transType, String transMessage) {
+        messageSendThreadPool.execute(() -> this.commit(transType, transMessage));
     }
 
     /**
@@ -43,17 +43,17 @@ public class TransCoordinator {
      *
      * @param transMessage
      */
-    public void commit(String transMessage) {
+    public void commit(String transType, String transMessage) {
         try {
-            this.sendMessage(transMessage);
+            this.sendMessage(transType, transMessage);
         } catch (Exception e) {
             log.error(String.format("Failed to commit,  message: %s", transMessage), e);
         }
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(String transType, String message) {
         try {
-            this.messageSender.send(message);
+            this.messageSender.send(transType, message);
         } catch (Exception e) {
             throw new TransMessageSendException("Failed to send message: " + message, e);
         }

@@ -24,6 +24,7 @@ public abstract class BaseInitiatedTest {
                 .serializeType("test")
                 .repositoryType("test")
                 .messageSendThreadPoolSize(1)
+                .dynamicConfigType("test")
                 .build());
     }
 }

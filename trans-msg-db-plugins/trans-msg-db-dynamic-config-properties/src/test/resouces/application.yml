@@ -1,0 +1,11 @@
+spring:
+  trans:
+    consumers:
+      order:
+        order-success:
+          - coupon
+          - member
+        order-cancel:
+          - inventory
+          - member
+

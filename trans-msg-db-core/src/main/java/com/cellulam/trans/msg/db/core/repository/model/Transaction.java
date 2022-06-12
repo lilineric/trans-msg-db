@@ -14,9 +14,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class Transaction {
+    private String transType;
     private String transId;
     private String transMessage;
     private String producer;
+    /**
+     * see {@link com.cellulam.trans.msg.db.core.enums.TransStatus}
+     */
+    private String status;
     private LocalDateTime created;
     private LocalDateTime modified;
 }

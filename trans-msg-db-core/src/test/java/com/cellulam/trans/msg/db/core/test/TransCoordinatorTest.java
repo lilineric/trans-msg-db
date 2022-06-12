@@ -22,6 +22,6 @@ public class TransCoordinatorTest extends BaseInitiatedTest {
     }
     @Test
     public void testCommit() {
-        TransCoordinator.instance.asyncCommit("Test body");
+        TransCoordinator.instance.asyncCommit("trans-type", "Test body");
     }
 }
