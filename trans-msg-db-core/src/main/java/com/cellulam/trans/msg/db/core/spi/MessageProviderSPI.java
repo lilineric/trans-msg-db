@@ -27,6 +27,7 @@ public interface MessageProviderSPI extends TypeSPI {
 
     /**
      * start
+     * start executes the internal tasks of the provider, such as timed tasks, etc.
      */
     void start();
 }

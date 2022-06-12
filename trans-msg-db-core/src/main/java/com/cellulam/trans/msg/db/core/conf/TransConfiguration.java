@@ -25,7 +25,7 @@ public class TransConfiguration {
     private String dynamicConfigType;
 
     @Builder.Default
-    private String uidGeneratorType = "uuid";
+    private String uidGeneratorType;
 
     @Builder.Default
     private int messageSendThreadPoolSize = 10;
@@ -33,11 +33,16 @@ public class TransConfiguration {
      * Recover the frequency of execution
      */
     @Builder.Default
-    private long recoverPeriodSeconds = 30;
+    private long recoverExecPeriodSeconds = 30;
+    /**
+     * Recover the frequency of fixing trying
+     */
+    @Builder.Default
+    private long recoverFixPeriodSeconds = 120;
     /**
      * The timeout for transaction retry execution.
      * If this time is exceeded and no ACK is received, the state is reset and retried on the next retry period.
      */
     @Builder.Default
-    private long transTryTimeout = 300;
+    private long transTryTimeoutSeconds = 600;
 }

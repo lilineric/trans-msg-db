@@ -26,9 +26,19 @@ public class MessageRecover {
 
     public void start() {
         this.scheduledThreadPool.scheduleAtFixedRate(this::messageTransRecover,
-                TransContext.getConfiguration().getRecoverPeriodSeconds(),
-                TransContext.getConfiguration().getRecoverPeriodSeconds(),
+                TransContext.getConfiguration().getRecoverExecPeriodSeconds(),
+                TransContext.getConfiguration().getRecoverExecPeriodSeconds(),
                 TimeUnit.SECONDS);
+
+        this.scheduledThreadPool.scheduleAtFixedRate(this::transStatusRecover,
+                TransContext.getConfiguration().getRecoverFixPeriodSeconds(),
+                TransContext.getConfiguration().getRecoverFixPeriodSeconds(),
+                TimeUnit.SECONDS);
+    }
+
+    private void transStatusRecover() {
+        TransRepository.instance.recoverTryingStatus(TransContext.getConfiguration().getTransTryTimeoutSeconds(),
+                trans -> TransRepository.instance.resetStatus(trans));
     }
 
     private void messageTransRecover() {

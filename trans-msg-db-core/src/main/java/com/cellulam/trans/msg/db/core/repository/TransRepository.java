@@ -32,6 +32,11 @@ public class TransRepository {
         repositorySPI.processSendingTrans(executor);
     }
 
+    public void recoverTryingStatus(long transTryTimeoutSeconds, Consumer<Transaction> executor) {
+        repositorySPI.recoverTryingStatus(transTryTimeoutSeconds, executor);
+    }
+
+
     public boolean tryExecute(Transaction transaction) {
         return repositorySPI.tryExecute(transaction);
     }
@@ -43,4 +48,5 @@ public class TransRepository {
     public void finishTrans(Transaction trans, TransStatus status) {
         repositorySPI.finishTrans(trans, status);
     }
+
 }

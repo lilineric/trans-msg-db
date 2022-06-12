@@ -25,6 +25,7 @@ public abstract class BaseInitiatedTest {
                 .repositoryType("test")
                 .messageSendThreadPoolSize(1)
                 .dynamicConfigType("test")
+                .uidGeneratorType("uuid")
                 .build());
     }
 }

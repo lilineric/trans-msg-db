@@ -34,6 +34,11 @@ public class TestRepositorySPI implements RepositorySPI {
     }
 
     @Override
+    public void recoverTryingStatus(long transTryTimeoutSeconds, Consumer<Transaction> executor) {
+
+    }
+
+    @Override
     public boolean tryExecute(Transaction transaction) {
         return true;
     }

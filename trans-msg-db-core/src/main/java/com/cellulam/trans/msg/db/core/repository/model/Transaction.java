@@ -22,6 +22,7 @@ public class Transaction {
      * see {@link com.cellulam.trans.msg.db.core.enums.TransStatus}
      */
     private String status;
+    private int retryCount;
     private LocalDateTime created;
     private LocalDateTime modified;
 }
