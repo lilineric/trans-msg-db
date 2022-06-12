@@ -14,6 +14,7 @@ import java.util.UUID;
  */
 public class TestMessageProviderSPI implements MessageProviderSPI {
     private MessageProcessor messageProcessor;
+    private MessageSender messageSender = new TestMessageSender();
 
     @Override
     public void registerMessageProcessor(MessageProcessor processor) {
@@ -22,16 +23,12 @@ public class TestMessageProviderSPI implements MessageProviderSPI {
 
     @Override
     public MessageSender getMessageSender() {
-        return message -> {
-            System.out.println("test send " + message);
-            return UUID.randomUUID().toString();
-        };
+        return this.messageSender;
     }
 
     @Override
     public void start() {
 
-        //TODO listen MQ success and invoke messageProcessor
         TransMessage message = new TransMessage();
 
         TransMessageHeader header = new TransMessageHeader();

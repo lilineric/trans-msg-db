@@ -1,9 +1,6 @@
 package com.cellulam.trans.msg.db.core.repository.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,9 +12,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransMessage {
+@ToString
+public class Transaction {
     private String transId;
-    private String body;
+    private String transMessage;
     private String producer;
     private LocalDateTime created;
     private LocalDateTime modified;

@@ -1,7 +1,6 @@
 package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 
 import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.message.model.TransMessage;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,8 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 public class RabbitMQSender implements MessageSender {
 
     @Override
-    public String send(TransMessage message) {
+    public void send(String message) {
         log.info("Message send to RabbitMQ: {}", message);
-        return message.getHeader().getTransId();
+    }
+
+    @Override
+    public void send(byte[] message) {
+        log.info("Message send to RabbitMQ: {}", message);
     }
 }

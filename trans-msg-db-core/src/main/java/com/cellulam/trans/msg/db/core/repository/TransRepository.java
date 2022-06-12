@@ -2,11 +2,10 @@ package com.cellulam.trans.msg.db.core.repository;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
-import com.cellulam.trans.msg.db.core.factories.SerializeFactory;
+import com.cellulam.trans.msg.db.core.repository.model.Transaction;
 import com.cellulam.trans.msg.db.core.spi.RepositorySPI;
-import com.cellulam.trans.msg.db.core.spi.SerializeSPI;
 
-import java.io.Serializable;
+import java.util.function.Consumer;
 
 /**
  * @author eric.li
@@ -17,11 +16,22 @@ public class TransRepository {
     }
 
     private RepositorySPI repositorySPI = RepositoryFactory.getInstance(TransContext.getConfiguration().getRepositoryType());
-    private SerializeSPI serializeSPI = SerializeFactory.getInstance(TransContext.getConfiguration().getSerializeType());
 
     public final static TransRepository instance = new TransRepository();
 
-    public <T extends Serializable> String insertTransMessage(String producer, T body) {
-        return repositorySPI.insertTransMessage(producer, serializeSPI.serialize(body));
+    public void insertTransMessage(String producer, String transId, String transMessage) {
+        repositorySPI.insertTransMessage(producer, transId, transMessage);
+    }
+
+    public void processSendingTrans(Consumer<Transaction> executor) {
+        repositorySPI.processSendingTrans(executor);
+    }
+
+    public boolean tryExecute(Transaction transaction) {
+        return repositorySPI.tryExecute(transaction);
+    }
+
+    public void resetStatus(Transaction trans) {
+        repositorySPI.resetStatus(trans);
     }
 }

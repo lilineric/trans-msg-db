@@ -22,5 +22,20 @@ public class TransConfiguration {
     @NonNull
     private String serializeType;
 
+    @Builder.Default
+    private String uidGeneratorType = "uuid";
+
+    @Builder.Default
     private int messageSendThreadPoolSize = 10;
+    /**
+     * Recover the frequency of execution
+     */
+    @Builder.Default
+    private long recoverPeriodSeconds = 30;
+    /**
+     * The timeout for transaction retry execution.
+     * If this time is exceeded and no ACK is received, the state is reset and retried on the next retry period.
+     */
+    @Builder.Default
+    private long transTryTimeout = 300;
 }

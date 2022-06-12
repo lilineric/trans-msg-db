@@ -7,7 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
-import java.util.UUID;
 
 /**
  * @author eric.li
@@ -23,6 +22,6 @@ public class TransCoordinatorTest extends BaseInitiatedTest {
     }
     @Test
     public void testCommit() {
-        TransCoordinator.instance.asyncCommit(UUID.randomUUID().toString(), "Test body");
+        TransCoordinator.instance.asyncCommit("Test body");
     }
 }
