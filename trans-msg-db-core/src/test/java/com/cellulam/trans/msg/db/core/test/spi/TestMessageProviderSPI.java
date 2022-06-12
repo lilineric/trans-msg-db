@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.test.configuration;
+package com.cellulam.trans.msg.db.core.test.spi;
 
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author eric.li
  * @date 2022-06-12 01:57
  */
-public class TestMessageProvider implements MessageProviderSPI {
+public class TestMessageProviderSPI implements MessageProviderSPI {
     private MessageProcessor messageProcessor;
 
     @Override

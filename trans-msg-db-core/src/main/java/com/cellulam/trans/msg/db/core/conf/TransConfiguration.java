@@ -2,6 +2,7 @@ package com.cellulam.trans.msg.db.core.conf;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -12,6 +13,14 @@ import lombok.ToString;
 @ToString
 @Builder
 public class TransConfiguration {
-    private int messageSendThreadPoolSize;
+    @NonNull
+    private String appName;
+    @NonNull
     private String messageProviderType;
+    @NonNull
+    private String repositoryType;
+    @NonNull
+    private String serializeType;
+
+    private int messageSendThreadPoolSize = 10;
 }

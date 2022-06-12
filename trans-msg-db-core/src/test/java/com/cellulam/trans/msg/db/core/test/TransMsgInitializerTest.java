@@ -19,9 +19,9 @@ public class TransMsgInitializerTest {
 
     @Before
     public void before() throws NoSuchFieldException, IllegalAccessException {
-        Field field = TransContext.context.getClass().getDeclaredField("initiated");
+        Field field = TransContext.getContext().getClass().getDeclaredField("initiated");
         field.setAccessible(true);
-        field.set(TransContext.context, false);
+        field.set(TransContext.getContext(), false);
     }
 
     @Test

@@ -26,8 +26,8 @@ public class TransCoordinator {
     private final ExecutorService messageSendThreadPool;
 
     private TransCoordinator() {
-        this.messageSender = MessageSenderFactory.getInstance(TransContext.context.getProperties().getMessageProviderType());
-        this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.context.getProperties().getMessageSendThreadPoolSize());
+        this.messageSender = MessageSenderFactory.getInstance(TransContext.getConfiguration().getMessageProviderType());
+        this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.getConfiguration().getMessageSendThreadPoolSize());
     }
 
     public final static TransCoordinator instance = new TransCoordinator();

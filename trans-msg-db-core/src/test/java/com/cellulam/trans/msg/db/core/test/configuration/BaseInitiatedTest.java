@@ -12,7 +12,10 @@ public abstract class BaseInitiatedTest {
     @BeforeClass
     public static void baseBeforeClass() {
         TransMsgInitializer.init(TransConfiguration.builder()
+                .appName("test-app")
                 .messageProviderType("test")
+                .serializeType("test")
+                .repositoryType("test")
                 .messageSendThreadPoolSize(1)
                 .build());
     }

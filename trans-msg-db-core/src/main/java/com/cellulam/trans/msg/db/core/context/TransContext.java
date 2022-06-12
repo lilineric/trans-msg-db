@@ -17,20 +17,24 @@ public class TransContext {
 
     }
 
-    private TransConfiguration properties;
+    private TransConfiguration configuration;
 
-    public final static TransContext context = new TransContext();
+    private final static TransContext context = new TransContext();
 
     public static boolean isInitiated() {
         return initiated;
     }
 
-    public TransConfiguration getProperties() {
-        checkStatus();
-        return properties;
+    public static TransContext getContext() {
+        return context;
     }
 
-    private void checkStatus() {
+    public static TransConfiguration getConfiguration() {
+        checkStatus();
+        return context.configuration;
+    }
+
+    private static void checkStatus() {
         if (!initiated) {
             throw new TransMessageConfigurationException("TransContext uninitialized");
         }
@@ -40,7 +44,7 @@ public class TransContext {
         if (initiated) {
             throw new TransMessageConfigurationException("TransContext already initiated");
         }
-        context.properties = transProperties;
+        context.configuration = transProperties;
         log.info("Loaded properties: {}", transProperties);
 
         initiated = true;
