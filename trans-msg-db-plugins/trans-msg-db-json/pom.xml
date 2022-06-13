@@ -16,10 +16,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.cellulam</groupId>
-            <artifactId>trans-msg-db-core</artifactId>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

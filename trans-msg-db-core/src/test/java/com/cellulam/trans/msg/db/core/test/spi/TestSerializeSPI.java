@@ -1,6 +1,8 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
-import com.cellulam.trans.msg.db.core.spi.SerializeSPI;
+import com.cellulam.trans.msg.db.core.message.model.TransMessage;
+import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
+import com.cellulam.trans.msg.db.spi.SerializeSPI;
 
 import java.io.Serializable;
 
@@ -16,6 +18,14 @@ public class TestSerializeSPI implements SerializeSPI {
 
     @Override
     public <T extends Serializable> T deserialize(String str, Class<T> clz) {
+        if(clz.equals(TransMessage.class)) {
+            TransMessage transMessage = new TransMessage();
+            TransMessageHeader header = new TransMessageHeader();
+            header.setSource("test");
+            header.setTransType("order-success");
+            transMessage.setHeader(header);
+            return (T)transMessage;
+        }
         try {
             return clz.newInstance();
         } catch (InstantiationException e) {

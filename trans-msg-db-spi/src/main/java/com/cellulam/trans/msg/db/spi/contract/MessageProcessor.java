@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.message;
+package com.cellulam.trans.msg.db.spi.contract;
 
 /**
  * @author eric.li
@@ -6,8 +6,7 @@ package com.cellulam.trans.msg.db.core.message;
  */
 public interface MessageProcessor {
     /**
-     * process message by consumer
-     *
+     * process message
      * @param message
      * @return
      */

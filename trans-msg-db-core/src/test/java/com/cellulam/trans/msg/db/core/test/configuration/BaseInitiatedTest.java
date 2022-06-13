@@ -3,6 +3,8 @@ package com.cellulam.trans.msg.db.core.test.configuration;
 import com.cellulam.trans.msg.db.core.conf.TransConfiguration;
 import com.cellulam.trans.msg.db.core.conf.TransMsgInitializer;
 import com.cellulam.trans.msg.db.core.context.TransContext;
+import com.trans.db.facade.TransMessageProcessor;
+import com.trans.db.facade.TransProcessResult;
 import org.junit.BeforeClass;
 
 import java.lang.reflect.Field;
@@ -27,5 +29,24 @@ public abstract class BaseInitiatedTest {
                 .dynamicConfigType("test")
                 .uidGeneratorType("uuid")
                 .build());
+
+        TransMsgInitializer.registerConsumerProcessor(new TransMessageProcessor<String>() {
+            @Override
+            public String getProducer() {
+                return "test";
+            }
+
+            @Override
+            public String getTransType() {
+                return "order-success";
+            }
+
+            @Override
+            public TransProcessResult process(String body) {
+                return TransProcessResult.SUCCESS;
+            }
+        });
+
+        TransMsgInitializer.start();
     }
 }

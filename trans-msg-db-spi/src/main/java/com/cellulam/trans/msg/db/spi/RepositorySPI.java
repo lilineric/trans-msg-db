@@ -1,11 +1,12 @@
-package com.cellulam.trans.msg.db.core.spi;
+package com.cellulam.trans.msg.db.spi;
 
-import com.cellulam.trans.msg.db.core.enums.TransStatus;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
 import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
+import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.TransStatus;
 
 import java.util.function.Consumer;
+
 
 /**
  * repository SPI

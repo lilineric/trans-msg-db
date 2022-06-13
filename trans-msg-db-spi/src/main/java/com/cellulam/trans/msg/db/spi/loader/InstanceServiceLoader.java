@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.spi;
+package com.cellulam.trans.msg.db.spi.loader;
 
 import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.exceptions.SPINewInstanceException;

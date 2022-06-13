@@ -1,6 +1,7 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
-import com.cellulam.trans.msg.db.core.spi.UidGeneratorSPI;
+
+import com.cellulam.trans.msg.db.spi.UidGeneratorSPI;
 
 import java.util.UUID;
 

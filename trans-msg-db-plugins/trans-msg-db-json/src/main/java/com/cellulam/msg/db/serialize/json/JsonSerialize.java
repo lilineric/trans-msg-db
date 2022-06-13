@@ -1,6 +1,7 @@
 package com.cellulam.msg.db.serialize.json;
 
-import com.cellulam.trans.msg.db.core.spi.SerializeSPI;
+
+import com.cellulam.trans.msg.db.spi.SerializeSPI;
 
 import java.io.Serializable;
 

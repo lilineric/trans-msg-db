@@ -1,7 +1,7 @@
-package com.cellulam.trans.msg.db.spi;
+package com.cellulam.trans.msg.db.spi.loader;
 
-import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
+import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.exceptions.ServiceProviderNotFoundException;
 import com.cellulam.trans.msg.db.spi.exceptions.ServiceProviderRegisterException;
 import com.google.common.collect.Maps;

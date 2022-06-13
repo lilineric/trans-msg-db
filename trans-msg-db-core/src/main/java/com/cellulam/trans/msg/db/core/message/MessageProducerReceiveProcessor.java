@@ -1,5 +1,6 @@
 package com.cellulam.trans.msg.db.core.message;
 
+import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,7 +13,6 @@ public class MessageProducerReceiveProcessor implements MessageProcessor {
 
     @Override
     public boolean process(String message) {
-        log.info("process ack message: {}", message);
-        return true;
+        return false;
     }
 }

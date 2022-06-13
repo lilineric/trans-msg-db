@@ -1,7 +1,7 @@
 package com.cellulam.trans.msg.db.core.factories;
 
-import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
-import com.cellulam.trans.msg.db.spi.SingletonTypeSPIInstanceFactory;
+import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.loader.SingletonTypeSPIInstanceFactory;
 
 import java.util.Collection;
 

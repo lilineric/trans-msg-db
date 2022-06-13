@@ -1,7 +1,7 @@
 package com.cellulam.trans.msg.db.core.factories;
 
-import com.cellulam.trans.msg.db.core.spi.UidGeneratorSPI;
-import com.cellulam.trans.msg.db.spi.SingletonTypeSPIInstanceFactory;
+import com.cellulam.trans.msg.db.spi.UidGeneratorSPI;
+import com.cellulam.trans.msg.db.spi.loader.SingletonTypeSPIInstanceFactory;
 
 /**
  * @author eric.li

@@ -14,6 +14,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-facade</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>

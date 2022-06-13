@@ -1,7 +1,7 @@
 package com.cellulam.msg.db.dynamic.config.properties;
 
 import com.cellulam.msg.db.dynamic.config.properties.config.ConsumerProperties;
-import com.cellulam.trans.msg.db.core.spi.DynamicConfigSPI;
+import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

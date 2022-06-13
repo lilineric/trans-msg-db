@@ -1,8 +1,8 @@
 package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 
-import com.cellulam.trans.msg.db.core.message.MessageProcessor;
-import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -44,12 +44,12 @@ public class RabbitMQMessageProvider implements MessageProviderSPI {
 
     @Override
     public void start() {
-        if(this.messageConsumerProcessor != null) {
+        if (this.messageConsumerProcessor != null) {
             //TODO listen MQ success and invoke messageProcessor
             this.messageConsumerProcessor.process("test process message");
         }
 
-        if(this.messageProducerProcessor != null) {
+        if (this.messageProducerProcessor != null) {
             //TODO listen ACK message and invoke ack
             this.messageProducerProcessor.process("test ack message");
         }

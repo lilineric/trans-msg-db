@@ -1,10 +1,10 @@
 package com.cellulam.trans.msg.db.core.repository;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
-import com.cellulam.trans.msg.db.core.enums.TransStatus;
 import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
-import com.cellulam.trans.msg.db.core.spi.RepositorySPI;
+import com.cellulam.trans.msg.db.spi.RepositorySPI;
+import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.TransStatus;
 
 import java.util.function.Consumer;
 

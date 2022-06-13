@@ -1,11 +1,11 @@
 package com.cellulam.trans.msg.db.core.recovery;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
-import com.cellulam.trans.msg.db.core.enums.TransStatus;
 import com.cellulam.trans.msg.db.core.factories.DynamicConfigFactory;
 import com.cellulam.trans.msg.db.core.repository.TransRepository;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
-import com.cellulam.trans.msg.db.core.spi.DynamicConfigSPI;
+import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
+import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.TransStatus;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;

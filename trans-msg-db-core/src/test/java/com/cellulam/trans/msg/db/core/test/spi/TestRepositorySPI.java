@@ -1,9 +1,9 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
 import com.cellulam.msg.db.test.utils.TestUtils;
-import com.cellulam.trans.msg.db.core.enums.TransStatus;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
-import com.cellulam.trans.msg.db.core.spi.RepositorySPI;
+import com.cellulam.trans.msg.db.spi.RepositorySPI;
+import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.TransStatus;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.Consumer;

@@ -3,7 +3,7 @@ package com.cellulam.trans.msg.db.core.coordinator;
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageSendException;
 import com.cellulam.trans.msg.db.core.factories.MessageSenderFactory;
-import com.cellulam.trans.msg.db.core.message.MessageSender;
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -18,12 +18,12 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class TransCoordinator {
 
-    private final MessageSender consumerMessageSender;
+    private final MessageSender producerMessageSender;
 
     private final ExecutorService messageSendThreadPool;
 
     private TransCoordinator() {
-        this.consumerMessageSender = MessageSenderFactory.getConsumerSender(TransContext.getConfiguration().getMessageProviderType());
+        this.producerMessageSender = MessageSenderFactory.getProducerSender(TransContext.getConfiguration().getMessageProviderType());
         this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.getConfiguration().getMessageSendThreadPoolSize());
     }
 
@@ -53,7 +53,7 @@ public class TransCoordinator {
 
     private void sendMessage(String transType, String message) {
         try {
-            this.consumerMessageSender.send(transType, message);
+            this.producerMessageSender.send(TransContext.getConfiguration().getAppName(), transType, message);
         } catch (Exception e) {
             throw new TransMessageSendException("Failed to send message: " + message, e);
         }

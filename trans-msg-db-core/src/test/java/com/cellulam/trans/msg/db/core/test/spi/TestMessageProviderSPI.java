@@ -1,8 +1,8 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
-import com.cellulam.trans.msg.db.core.message.MessageProcessor;
-import com.cellulam.trans.msg.db.core.message.MessageSender;
-import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 
 /**
  * @author eric.li

@@ -1,7 +1,5 @@
 package com.cellulam.msg.db.serialize.json;
 
-import com.cellulam.trans.msg.db.core.exceptions.TransMessageDeserializeException;
-import com.cellulam.trans.msg.db.core.exceptions.TransMessageSerializeException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -83,7 +81,7 @@ public final class Jacksonor {
         try {
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            throw new TransMessageSerializeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -102,7 +100,7 @@ public final class Jacksonor {
         try {
             return mapper.readValue(jsonText, clz);
         } catch (IOException e) {
-            throw new TransMessageDeserializeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -121,7 +119,7 @@ public final class Jacksonor {
         try {
             return mapper.convertValue(map, clz);
         } catch (Exception e) {
-            throw new TransMessageDeserializeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -220,7 +218,7 @@ public final class Jacksonor {
         try {
             return mapper.readValue(jsonText, refer);
         } catch (IOException e) {
-            throw new TransMessageDeserializeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -265,7 +263,7 @@ public final class Jacksonor {
 
             return mapper.readValue(jsonText, TypeRef.builder().type(type).build());
         } catch (IOException e) {
-            throw new TransMessageDeserializeException(e);
+            throw new RuntimeException(e);
         }
     }
 

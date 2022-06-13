@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.repository.model;
+package com.trans.db.facade;
 
 import lombok.*;
 
@@ -19,7 +19,7 @@ public class Transaction {
     private String transMessage;
     private String producer;
     /**
-     * see {@link com.cellulam.trans.msg.db.core.enums.TransStatus}
+     * see {@link com.trans.db.facade.enums.TransStatus}
      */
     private String status;
     private int retryCount;

@@ -1,9 +1,9 @@
 package com.cellulam.trans.msg.db.core.test;
 
-import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
 import com.cellulam.trans.msg.db.core.factories.MessageSenderFactory;
-import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import org.junit.Assert;
 import org.junit.Test;
 

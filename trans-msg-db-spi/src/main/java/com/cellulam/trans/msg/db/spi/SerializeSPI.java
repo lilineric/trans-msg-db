@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.spi;
+package com.cellulam.trans.msg.db.spi;
 
 import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;

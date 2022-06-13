@@ -19,10 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>com.cellulam</groupId>
-            <artifactId>trans-msg-db-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cellulam</groupId>
             <artifactId>trans-msg-db-test</artifactId>
             <scope>test</scope>
         </dependency>

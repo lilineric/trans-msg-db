@@ -1,8 +1,8 @@
-package com.cellulam.trans.msg.db.core.spi;
+package com.cellulam.trans.msg.db.spi;
 
-import com.cellulam.trans.msg.db.core.message.MessageProcessor;
-import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
+import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
 
 /**

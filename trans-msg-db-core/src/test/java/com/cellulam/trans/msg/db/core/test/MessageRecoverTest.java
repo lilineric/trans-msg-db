@@ -1,12 +1,10 @@
 package com.cellulam.trans.msg.db.core.test;
 
-import com.cellulam.trans.msg.db.core.enums.TransStatus;
-import com.cellulam.trans.msg.db.core.recovery.BranchTransRegister;
 import com.cellulam.trans.msg.db.core.recovery.MessageRecover;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
+import com.trans.db.facade.Transaction;
 import com.cellulam.trans.msg.db.core.test.configuration.BaseInitiatedTest;
+import com.trans.db.facade.enums.TransStatus;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.lang.reflect.Method;
 import java.util.UUID;

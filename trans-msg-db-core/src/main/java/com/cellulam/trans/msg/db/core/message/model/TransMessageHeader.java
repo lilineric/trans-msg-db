@@ -18,6 +18,13 @@ public class TransMessageHeader implements Serializable {
     private String transId;
 
     /**
+     * message source
+     * sent by producer for trans message
+     * sent by consumer for ack message
+     */
+    private String source;
+
+    /**
      * trans business type
      */
     private String transType;

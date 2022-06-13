@@ -4,7 +4,7 @@ import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.coordinator.TransCoordinator;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageRecoverException;
 import com.cellulam.trans.msg.db.core.repository.TransRepository;
-import com.cellulam.trans.msg.db.core.repository.model.Transaction;
+import com.trans.db.facade.Transaction;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Executors;

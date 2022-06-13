@@ -1,6 +1,6 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
-import com.cellulam.trans.msg.db.core.spi.DynamicConfigSPI;
+import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
 import com.google.common.collect.Lists;
 
 import java.util.List;

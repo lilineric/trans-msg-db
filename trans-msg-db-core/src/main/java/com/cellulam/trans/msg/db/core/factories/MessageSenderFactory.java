@@ -1,6 +1,7 @@
 package com.cellulam.trans.msg.db.core.factories;
 
-import com.cellulam.trans.msg.db.core.message.MessageSender;
+
+import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 
 /**
  * message sender factory

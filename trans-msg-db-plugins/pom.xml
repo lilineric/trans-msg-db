@@ -17,5 +17,16 @@
         <module>trans-msg-db-dynamic-config-properties</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-facade</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

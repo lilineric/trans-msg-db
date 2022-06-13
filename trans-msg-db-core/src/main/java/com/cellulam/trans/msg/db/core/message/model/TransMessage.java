@@ -11,9 +11,9 @@ import java.io.Serializable;
  */
 @ToString
 @Data
-public class TransMessage<T extends Serializable> implements Serializable{
+public class TransMessage implements Serializable{
     private static final long serialVersionUID = -4682777769419177821L;
 
     private TransMessageHeader header;
-    private T body;
+    private String body;
 }

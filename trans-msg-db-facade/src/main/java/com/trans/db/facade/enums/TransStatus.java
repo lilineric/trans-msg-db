@@ -1,4 +1,4 @@
-package com.cellulam.trans.msg.db.core.enums;
+package com.trans.db.facade.enums;
 
 /**
  * @author eric.li
