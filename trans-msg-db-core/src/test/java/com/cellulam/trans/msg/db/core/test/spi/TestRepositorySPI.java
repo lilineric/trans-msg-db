@@ -11,9 +11,9 @@ import com.trans.db.facade.enums.TransStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -28,6 +28,10 @@ public class TestRepositorySPI implements RepositorySPI {
         return "test";
     }
 
+
+    @Override
+    public void init(DataSource dataSource) {
+    }
 
     @Override
     public synchronized void insertTransMessage(String producer, String transType, String transId, String transMessage) {
@@ -64,8 +68,8 @@ public class TestRepositorySPI implements RepositorySPI {
     }
 
     @Override
-    public synchronized boolean tryExecute(Transaction transaction) {
-        MockDB.transactionMap.get(transaction.getTransId()).setStatus(TransStatus.TRYING.name());
+    public synchronized boolean tryExecute(String transId) {
+        MockDB.transactionMap.get(transId).setStatus(TransStatus.TRYING.name());
         return true;
     }
 
@@ -87,7 +91,7 @@ public class TestRepositorySPI implements RepositorySPI {
     }
 
     @Override
-    public synchronized void registerBranchTrans(String consumer, Transaction trans) {
+    public synchronized void registerBranchTrans(String branchTransId, String consumer, Transaction trans) {
         if (!MockDB.branchMap.containsKey(trans.getTransId())) {
             MockDB.branchMap.put(trans.getTransId(), Lists.newArrayList());
         }
@@ -96,7 +100,7 @@ public class TestRepositorySPI implements RepositorySPI {
             return;
         }
         MockDB.branchMap.get(trans.getTransId()).add(BranchTransaction.builder()
-                .branchTransId(UUID.randomUUID().toString())
+                .branchTransId(branchTransId)
                 .transId(trans.getTransId())
                 .consumer(consumer)
                 .result(TransProcessResult.INIT.name())

@@ -27,6 +27,7 @@ public class Transaction {
      */
     private String status;
     private int retryCount;
+    private LocalDateTime lastRetryTime;
     private LocalDateTime created;
     private LocalDateTime modified;
 }

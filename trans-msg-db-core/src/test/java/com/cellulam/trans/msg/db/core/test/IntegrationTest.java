@@ -60,6 +60,7 @@ public class IntegrationTest {
                 .recoverFixPeriodSeconds(recoverFixPeriodSeconds)
                 .dynamicConfigType("test")
                 .uidGeneratorType("uuid")
+                .dataSource(MockDB.dataSource)
                 .build());
 
         registerConsumerProcessor();

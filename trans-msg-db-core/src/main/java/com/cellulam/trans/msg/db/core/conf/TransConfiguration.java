@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.ToString;
 
+import javax.sql.DataSource;
+
 /**
  * @author eric.li
  * @date 2022-06-11 23:11
@@ -23,6 +25,8 @@ public class TransConfiguration {
     private String serializeType;
     @NonNull
     private String dynamicConfigType;
+    @NonNull
+    private DataSource dataSource;
 
     @Builder.Default
     private String uidGeneratorType;

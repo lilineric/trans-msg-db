@@ -2,8 +2,10 @@ package com.cellulam.trans.msg.db.core.recovery;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.factories.DynamicConfigFactory;
+import com.cellulam.trans.msg.db.core.factories.UidGeneratorFactory;
 import com.cellulam.trans.msg.db.core.repository.TransRepository;
 import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
+import com.cellulam.trans.msg.db.spi.UidGeneratorSPI;
 import com.trans.db.facade.Transaction;
 import com.trans.db.facade.enums.BranchTransStatus;
 import com.trans.db.facade.enums.TransStatus;
@@ -17,9 +19,11 @@ import java.util.List;
  */
 public class BranchTransRegister {
     private final DynamicConfigSPI dynamicConfigSPI;
+    private final UidGeneratorSPI uidGeneratorSPI;
 
     private BranchTransRegister() {
         this.dynamicConfigSPI = DynamicConfigFactory.getInstance(TransContext.getConfiguration().getDynamicConfigType());
+        this.uidGeneratorSPI = UidGeneratorFactory.getInstance(TransContext.getConfiguration().getUidGeneratorType());
     }
 
     public final static BranchTransRegister instance = new BranchTransRegister();
@@ -38,7 +42,7 @@ public class BranchTransRegister {
             return false;
         }
         consumers.parallelStream()
-                .forEach(x -> TransRepository.instance.registerBranchTrans(x, trans));
+                .forEach(x -> TransRepository.instance.registerBranchTrans(uidGeneratorSPI.nextId(), x, trans));
         TransRepository.instance.updateBranchTransStatus(trans.getTransId(), BranchTransStatus.REGISTERED);
         return true;
     }

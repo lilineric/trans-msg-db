@@ -3,6 +3,7 @@ package com.cellulam.trans.msg.db.core.test.configuration;
 import com.cellulam.trans.msg.db.core.conf.TransConfiguration;
 import com.cellulam.trans.msg.db.core.conf.TransMsgInitializer;
 import com.cellulam.trans.msg.db.core.context.TransContext;
+import com.cellulam.trans.msg.db.core.test.mock.storage.MockDB;
 import com.trans.db.facade.AbstractTransMessageProcessor;
 import com.trans.db.facade.enums.TransProcessResult;
 import org.junit.BeforeClass;
@@ -28,6 +29,7 @@ public abstract class BaseInitiatedTest {
                 .messageSendThreadPoolSize(1)
                 .dynamicConfigType("test")
                 .uidGeneratorType("uuid")
+                .dataSource(MockDB.dataSource)
                 .build());
 
         registerConsumerProcessor();

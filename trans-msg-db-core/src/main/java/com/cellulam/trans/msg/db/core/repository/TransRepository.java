@@ -22,8 +22,8 @@ public class TransRepository {
 
     public final static TransRepository instance = new TransRepository();
 
-    public void registerBranchTrans(String consumer, Transaction trans) {
-        repositorySPI.registerBranchTrans(consumer, trans);
+    public void registerBranchTrans(String branchTransId, String consumer, Transaction trans) {
+        repositorySPI.registerBranchTrans(branchTransId, consumer, trans);
     }
 
     public void insertTransMessage(String producer, String transType, String transId, String transMessage) {
@@ -40,7 +40,7 @@ public class TransRepository {
 
 
     public boolean tryExecute(Transaction transaction) {
-        return repositorySPI.tryExecute(transaction);
+        return repositorySPI.tryExecute(transaction.getTransId());
     }
 
     public void resetStatus(String transId) {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cellulam.trans.msg.db.mysql.dao.mappers.BranchTransactionMapper">
+    <resultMap id="ResultMap" type="com.trans.db.facade.BranchTransaction">
+        <id column="branch_trans_id" jdbcType="VARCHAR" property="branchTransId"/>
+        <result column="trans_id" jdbcType="VARCHAR" property="transId"/>
+        <result column="consumer" jdbcType="VARCHAR" property="consumer"/>
+        <result column="result" jdbcType="VARCHAR" property="result"/>
+        <result column="created" jdbcType="TIMESTAMP" property="created"/>
+        <result column="modified" jdbcType="TIMESTAMP" property="modified"/>
+    </resultMap>
+
+    <select id="getBranchTrans" parameterType="string" resultMap="ResultMap">
+        select * from tx_branch_transaction where trans_id = #{transId}
+    </select>
+
+    <insert id="insertHistory" parameterType="com.cellulam.trans.msg.db.mysql.dao.mappers.BranchTransactionMapper"
+            keyColumn="branch_trans_id" keyProperty="branchTransId">
+        insert tx_branch_transaction_history (branch_trans_id, trans_id, consumer, result, created, modified, finish_time)
+        value(#{branchTransId}, #{transId}, #{consumer}, #{result}, #{created}, #{modified}, now())
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from tx_branch_transaction where branch_trans_id = #{branchTransId}
+    </delete>
+
+    <insert id="insert" parameterType="com.cellulam.trans.msg.db.mysql.dao.mappers.BranchTransactionMapper"
+            keyColumn="branch_trans_id" keyProperty="branchTransId">
+        insert tx_branch_transaction (branch_trans_id, trans_id, consumer)
+        value (#{branchTransId}, #{transId}, #{consumer})
+    </insert>
+
+    <select id="getBranchTransaction" parameterType="map" resultMap="ResultMap">
+        select * from tx_branch_transaction where trans_id = #{transId} and consumer = #{source}
+    </select>
+
+    <select id="getBranchTransactionById" parameterType="string" resultMap="ResultMap">
+        select * from tx_branch_transaction where branch_trans_id = #{branchTransId}
+    </select>
+
+    <update id="updateResult" parameterType="map">
+        update tx_branch_transaction set result = #{result} and branch_trans_id = #{branchTransId}
+    </update>
+
+</mapper>
+

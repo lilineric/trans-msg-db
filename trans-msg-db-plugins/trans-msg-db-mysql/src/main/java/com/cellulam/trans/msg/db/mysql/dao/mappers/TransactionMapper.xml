@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cellulam.trans.msg.db.mysql.dao.mappers.TransactionMapper">
+    <resultMap id="ResultMap" type="com.trans.db.facade.Transaction">
+        <id column="trans_id" jdbcType="VARCHAR" property="transId" />
+        <result column="trans_type" jdbcType="VARCHAR" property="transType" />
+        <result column="trans_message" jdbcType="VARCHAR" property="transMessage" />
+        <result column="producer" jdbcType="VARCHAR" property="producer" />
+        <result column="branch_trans_status" jdbcType="VARCHAR" property="branchTransStatus" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="retry_count" jdbcType="INT" property="retryCount" />
+        <result column="last_retry_time" jdbcType="TIMESTAMP" property="lastRetryTime" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    </resultMap>
+
+    <insert id="insert" parameterType="map" keyColumn="trans_id" keyProperty="transId">
+       insert tx_transaction (trans_id, trans_type, trans_message, producer)
+       value (#{transId}, #{transType}, #{transMessage}, #{producer})
+    </insert>
+
+    <select id="fetchTransByStatus" parameterType="java.lang.String" resultMap="ResultMap">
+        select * from tx_transaction where status = #{status}
+    </select>
+
+    <select id="fetchTransByStatusTtl" parameterType="map" resultMap="ResultMap">
+        select * from tx_transaction where status = #{status}
+            and last_retry_time is not null
+            and TIMESTAMPDIFF(SECOND, last_retry_time, now()) > #{tryTtl}
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+        update tx_transaction set status = #{status}
+        where trans_id = #{transId} and status = #{conditionStatus}
+    </update>
+
+    <update id="updateBranchTransStatus" parameterType="map">
+        update tx_transaction set branch_trans_status = #{status}
+        where trans_id = #{transId}
+    </update>
+
+    <update id="tryExecute" parameterType="map">
+        set status = #{status},
+          retry_count = retry_count + 1,
+          last_retry_time = now()
+        where trans_id = #{transId} and status = #{conditionStatus}
+    </update>
+
+    <select id="getTrans" parameterType="java.lang.String" resultMap="ResultMap">
+        select * from tx_transaction where trans_id = #{transId}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from tx_transaction where trans_id = #{transId}
+    </delete>
+
+    <insert id="insertHistory" parameterType="com.trans.db.facade.Transaction" keyColumn="trans_id" keyProperty="transId">
+        insert tx_transaction_history (trans_id, trans_type, trans_message, producer,
+        branch_trans_status, status, retry_count, created, modified, finish_time)
+        value (#{transId}, #{transType}, #{transMessage}, #{producer},
+        branch_trans_status, #{status}, #{retryCount}, #{created}, #{modified}, now())
+    </insert>
+
+</mapper>
+

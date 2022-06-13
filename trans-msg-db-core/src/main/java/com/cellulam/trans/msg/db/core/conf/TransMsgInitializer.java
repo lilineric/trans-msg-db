@@ -2,6 +2,7 @@ package com.cellulam.trans.msg.db.core.conf;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
+import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
 import com.cellulam.trans.msg.db.core.message.ConsumerProcessorWrap;
 import com.cellulam.trans.msg.db.core.message.MessageConsumerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageProducerReceiveProcessor;
@@ -33,6 +34,9 @@ public abstract class TransMsgInitializer {
         consumerProcessors = Maps.newHashMap();
 
         TransContext.init(configuration);
+
+        RepositoryFactory.getInstance(configuration.getRepositoryType())
+                .init(configuration.getDataSource());
     }
 
     public static <T extends Serializable> ConsumerProcessorWrap<T> registerConsumerProcessor(TransMessageProcessor<T> processor) {

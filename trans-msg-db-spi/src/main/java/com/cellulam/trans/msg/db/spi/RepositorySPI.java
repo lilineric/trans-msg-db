@@ -7,19 +7,30 @@ import com.trans.db.facade.enums.BranchTransStatus;
 import com.trans.db.facade.enums.TransProcessResult;
 import com.trans.db.facade.enums.TransStatus;
 
+import javax.sql.DataSource;
 import java.util.function.Consumer;
 
 
 /**
  * repository SPI
+ *
  * @author eric.li
  * @date 2022-06-12 10:42
  */
 @SingletonSPI
 public interface RepositorySPI extends TypeSPI {
 
+
+    /**
+     * init
+     *
+     * @param dataSource
+     */
+    void init(DataSource dataSource);
+
     /**
      * insert trans message, set retry count to 0
+     *
      * @param producer
      * @param transType
      * @param transId
@@ -30,6 +41,7 @@ public interface RepositorySPI extends TypeSPI {
     /**
      * Process the transaction that the status is SENDING {@link TransStatus}
      * Process each SENDING transaction via executor
+     *
      * @param executor
      */
     void processSendingTrans(Consumer<Transaction> executor);
@@ -45,13 +57,15 @@ public interface RepositorySPI extends TypeSPI {
 
     /**
      * set the transaction status to TRYING {@link TransStatus}
-     * @param transaction
+     *
+     * @param transId
      * @return
      */
-    boolean tryExecute(Transaction transaction);
+    boolean tryExecute(String transId);
 
     /**
      * set the transaction status to SENDING {@link TransStatus}
+     *
      * @param transId
      */
     void resetStatus(String transId);
@@ -59,6 +73,10 @@ public interface RepositorySPI extends TypeSPI {
     /**
      * set the transaction status to SUCCESS {@link TransStatus} and migrate to history table
      * The branch transaction status needs to be checked before modifying the status
+     * Migrate the branch_transaction table first, then migrate the transaction table.
+     * Migration transaction failure will retry the transaction.
+     * Migrations do not need to be placed in the same transaction to improve concurrency performance.
+     *
      * @param transId
      * @param status
      */
@@ -67,13 +85,15 @@ public interface RepositorySPI extends TypeSPI {
     /**
      * register branch trans is not exist (in a same local transaction)
      *
+     * @param branchTransId
      * @param consumer
      * @param trans
      */
-    void registerBranchTrans(String consumer, Transaction trans);
+    void registerBranchTrans(String branchTransId, String consumer, Transaction trans);
 
     /**
      * executed branch trans and update the process result
+     *
      * @param source
      * @param transId
      * @return
@@ -82,6 +102,7 @@ public interface RepositorySPI extends TypeSPI {
 
     /**
      * get trans
+     *
      * @param transId
      * @return
      */
@@ -89,6 +110,7 @@ public interface RepositorySPI extends TypeSPI {
 
     /**
      * update branch transaction status
+     *
      * @param transId
      * @param status
      */

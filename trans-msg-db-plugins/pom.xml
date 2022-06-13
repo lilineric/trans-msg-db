@@ -16,6 +16,7 @@
         <module>trans-msg-db-json</module>
         <module>trans-msg-db-dynamic-config-properties</module>
         <module>trans-msg-db-uuid</module>
+        <module>trans-msg-db-mysql</module>
     </modules>
 
     <dependencies>
