@@ -10,4 +10,7 @@
         <appender-ref ref="STDOUT" />
     </root>
 
+    <logger name="com.cellulam.trans.msg.db" level="debug">
+        <appender-ref ref="STDOUT" />
+    </logger>
 </configuration>

@@ -3,6 +3,8 @@ package com.cellulam.trans.msg.db.spi;
 import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
 import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.BranchTransStatus;
+import com.trans.db.facade.enums.TransProcessResult;
 import com.trans.db.facade.enums.TransStatus;
 
 import java.util.function.Consumer;
@@ -50,16 +52,17 @@ public interface RepositorySPI extends TypeSPI {
 
     /**
      * set the transaction status to SENDING {@link TransStatus}
-     * @param trans
+     * @param transId
      */
-    void resetStatus(Transaction trans);
+    void resetStatus(String transId);
 
     /**
      * set the transaction status to SUCCESS {@link TransStatus} and migrate to history table
-     * @param trans
+     * The branch transaction status needs to be checked before modifying the status
+     * @param transId
      * @param status
      */
-    void finishTrans(Transaction trans, TransStatus status);
+    void finishTrans(String transId, TransStatus status);
 
     /**
      * register branch trans is not exist (in a same local transaction)
@@ -68,4 +71,26 @@ public interface RepositorySPI extends TypeSPI {
      * @param trans
      */
     void registerBranchTrans(String consumer, Transaction trans);
+
+    /**
+     * executed branch trans and update the process result
+     * @param source
+     * @param transId
+     * @return
+     */
+    boolean executedBranchTrans(String source, String transId, TransProcessResult result);
+
+    /**
+     * get trans
+     * @param transId
+     * @return
+     */
+    Transaction getTrans(String transId);
+
+    /**
+     * update branch transaction status
+     * @param transId
+     * @param status
+     */
+    void updateBranchTransStatus(String transId, BranchTransStatus status);
 }

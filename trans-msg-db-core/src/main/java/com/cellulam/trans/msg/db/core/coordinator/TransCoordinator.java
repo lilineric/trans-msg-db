@@ -35,6 +35,7 @@ public class TransCoordinator {
      * @param transMessage
      */
     public void asyncCommit(String transType, String transMessage) {
+        log.debug("async commit trans message, transType: {}, transMessage: {}", transType, transMessage);
         messageSendThreadPool.execute(() -> this.commit(transType, transMessage));
     }
 
@@ -46,6 +47,7 @@ public class TransCoordinator {
     public void commit(String transType, String transMessage) {
         try {
             this.sendMessage(transType, transMessage);
+            log.debug("Committed trans message, transType: {}, transMessage: {}", transType, transMessage);
         } catch (Exception e) {
             log.error(String.format("Failed to commit,  message: %s", transMessage), e);
         }

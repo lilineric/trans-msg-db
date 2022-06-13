@@ -38,7 +38,7 @@ public class MessageRecover {
 
     private void transStatusRecover() {
         TransRepository.instance.recoverTryingStatus(TransContext.getConfiguration().getTransTryTimeoutSeconds(),
-                trans -> TransRepository.instance.resetStatus(trans));
+                trans -> TransRepository.instance.resetStatus(trans.getTransId()));
     }
 
     private void messageTransRecover() {
@@ -65,7 +65,7 @@ public class MessageRecover {
 
     private void resetTransStatus(Transaction trans) {
         try {
-            TransRepository.instance.resetStatus(trans);
+            TransRepository.instance.resetStatus(trans.getTransId());
         } catch (Exception e) {
             log.error("Failed to reset trans status, trans: " + trans, e);
         }

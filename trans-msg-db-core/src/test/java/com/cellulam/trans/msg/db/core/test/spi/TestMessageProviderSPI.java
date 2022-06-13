@@ -1,8 +1,11 @@
 package com.cellulam.trans.msg.db.core.test.spi;
 
+import com.cellulam.trans.msg.db.core.test.mock.storage.MockMQ;
 import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
 import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
 import com.cellulam.trans.msg.db.spi.contract.MessageSender;
+import com.trans.db.facade.enums.TransStage;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author eric.li
@@ -11,8 +14,8 @@ import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 public class TestMessageProviderSPI implements MessageProviderSPI {
     private MessageProcessor messageConsumerProcessor;
     private MessageProcessor messageProducerProcessor;
-    private MessageSender messageConsumerSender = new TestMessageSender();
-    private MessageSender messageProducerSender = new TestMessageSender();
+    private MessageSender messageProducerSender = new TestMessageSender(TransStage.COMMIT);
+    private MessageSender messageConsumerSender = new TestMessageSender(TransStage.ACK);
 
     @Override
     public void registerMessageConsumerProcessor(MessageProcessor processor) {
@@ -36,8 +39,15 @@ public class TestMessageProviderSPI implements MessageProviderSPI {
 
     @Override
     public void start() {
-        this.messageConsumerProcessor.process("test msg");
-        this.messageProducerProcessor.process("test ack msg");
+        String consumerMessage = MockMQ.queue.poll();
+        if (StringUtils.isNotEmpty(consumerMessage)) {
+            this.messageConsumerProcessor.process(consumerMessage);
+        }
+
+        String producerMessage = MockMQ.ackQueue.poll();
+        if (StringUtils.isNotEmpty(producerMessage)) {
+            this.messageProducerProcessor.process(producerMessage);
+        }
     }
 
     @Override

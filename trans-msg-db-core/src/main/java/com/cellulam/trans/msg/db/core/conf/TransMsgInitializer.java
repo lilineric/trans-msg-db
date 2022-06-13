@@ -6,7 +6,6 @@ import com.cellulam.trans.msg.db.core.message.ConsumerProcessorWrap;
 import com.cellulam.trans.msg.db.core.message.MessageConsumerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageProducerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.recovery.MessageRecover;
-import com.cellulam.trans.msg.db.core.utils.ClassUtil;
 import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
 import com.google.common.collect.Maps;
 import com.trans.db.facade.TransMessageProcessor;
@@ -36,14 +35,15 @@ public abstract class TransMsgInitializer {
         TransContext.init(configuration);
     }
 
-    public static <T extends Serializable> void registerConsumerProcessor(TransMessageProcessor<T> processor) {
+    public static <T extends Serializable> ConsumerProcessorWrap<T> registerConsumerProcessor(TransMessageProcessor<T> processor) {
         ConsumerProcessorWrap<T> processorWrap = ConsumerProcessorWrap.<T>builder()
                 .producer(processor.getProducer())
                 .transType(processor.getTransType())
-                .bodyClass(ClassUtil.getSuperClassGenericType(processor.getClass(), 0))
+                .bodyClass(processor.getBodyClassType())
                 .processor(processor)
                 .build();
         consumerProcessors.put(processorWrap.getKey(), processorWrap);
+        return processorWrap;
     }
 
     public static void start() {

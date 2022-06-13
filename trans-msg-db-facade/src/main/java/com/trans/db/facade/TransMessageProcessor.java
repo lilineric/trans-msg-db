@@ -1,5 +1,7 @@
 package com.trans.db.facade;
 
+import com.trans.db.facade.enums.TransProcessResult;
+
 import java.io.Serializable;
 
 /**
@@ -14,4 +16,6 @@ public interface TransMessageProcessor<T extends Serializable> {
     String getTransType();
 
     TransProcessResult process(T body);
+
+    Class<T> getBodyClassType();
 }

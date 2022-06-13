@@ -3,12 +3,12 @@ package com.cellulam.trans.msg.db.core.message;
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.exceptions.TransMessageProcessException;
 import com.cellulam.trans.msg.db.core.factories.MessageSenderFactory;
-import com.cellulam.trans.msg.db.core.factories.SerializeFactory;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
-import com.cellulam.trans.msg.db.spi.SerializeSPI;
+import com.cellulam.trans.msg.db.core.message.model.TransMessageHeader;
 import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
 import com.cellulam.trans.msg.db.spi.contract.MessageSender;
-import com.trans.db.facade.TransProcessResult;
+import com.trans.db.facade.enums.TransProcessResult;
+import com.trans.db.facade.enums.TransStage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
@@ -21,38 +21,21 @@ import java.util.Map;
  * @date 2022-06-12 00:26
  */
 @Slf4j
-public class MessageConsumerReceiveProcessor implements MessageProcessor {
-
-    private final SerializeSPI serializeSPI;
+public class MessageConsumerReceiveProcessor extends AbstractMessageReceiveProcessor implements MessageProcessor {
 
     private final MessageSender consumerMessageSender;
 
     private final Map<String, ConsumerProcessorWrap<? extends Serializable>> processors;
 
-    private final String source = TransContext.getConfiguration().getAppName();
-
     public MessageConsumerReceiveProcessor(Map<String, ConsumerProcessorWrap<? extends Serializable>> processors) {
+        super();
         this.processors = processors;
-
         this.consumerMessageSender = MessageSenderFactory.getConsumerSender(TransContext.getConfiguration().getMessageProviderType());
-        this.serializeSPI = SerializeFactory.getInstance(TransContext.getConfiguration().getSerializeType());
     }
 
     @Override
-    public boolean process(String message) {
-        try {
-            TransMessage transMessage = serializeSPI.deserialize(message, TransMessage.class);
-            if (transMessage == null || transMessage.getHeader() == null) {
-                throw new TransMessageProcessException("Message format is incorrect: " + message);
-            }
-            return this.process(transMessage);
-        } catch (Exception e) {
-            log.error("Failed to process message: " + message, e);
-            return false;
-        }
-    }
-
-    private boolean process(TransMessage transMessage) {
+    protected boolean process(TransMessage transMessage) {
+        log.debug("Process {}", transMessage);
         String processorKey = ConsumerProcessorWrap.getKey(transMessage.getHeader().getSource(),
                 transMessage.getHeader().getTransType());
         ConsumerProcessorWrap processor = this.processors.get(processorKey);
@@ -62,15 +45,27 @@ public class MessageConsumerReceiveProcessor implements MessageProcessor {
                     processorKey, transMessage));
         }
 
-        TransProcessResult result = processor.getProcessor().process(serializeSPI.deserialize(transMessage.getBody(), processor.getBodyClass()));
+        TransProcessResult result = processor.getProcessor().process(this.getSerializeSPI().deserialize(transMessage.getBody(), processor.getBodyClass()));
+        log.debug("[transId={}] Process Result: {}", transMessage.getHeader().getTransId(), result);
 
-        if (result == TransProcessResult.SUCCESS) {
-            this.consumerMessageSender.send(source,
-                    transMessage.getHeader().getTransType(),
-                    transMessage.getHeader().getTransId());
-            return true;
-        }
+        //ACK
+        this.consumerMessageSender.send(this.getSource(),
+                transMessage.getHeader().getTransType(),
+                this.buildAckMessage(transMessage, result));
 
-        return false;
+        return result == TransProcessResult.SUCCESS;
+    }
+
+    private String buildAckMessage(TransMessage transMessage, TransProcessResult result) {
+        TransMessageHeader ackHeader = new TransMessageHeader();
+        ackHeader.setTransId(transMessage.getHeader().getTransId());
+        ackHeader.setSource(this.getSource());
+        ackHeader.setTransType(transMessage.getHeader().getTransType());
+        ackHeader.setStage(TransStage.ACK.name());
+
+        TransMessage ackMessage = new TransMessage();
+        ackMessage.setHeader(ackHeader);
+        ackMessage.setBody(result.name());
+        return this.getSerializeSPI().serialize(ackMessage);
     }
 }

@@ -4,6 +4,8 @@ import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
 import com.cellulam.trans.msg.db.spi.RepositorySPI;
 import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.BranchTransStatus;
+import com.trans.db.facade.enums.TransProcessResult;
 import com.trans.db.facade.enums.TransStatus;
 
 import java.util.function.Consumer;
@@ -41,12 +43,23 @@ public class TransRepository {
         return repositorySPI.tryExecute(transaction);
     }
 
-    public void resetStatus(Transaction trans) {
-        repositorySPI.resetStatus(trans);
+    public void resetStatus(String transId) {
+        repositorySPI.resetStatus(transId);
     }
 
-    public void finishTrans(Transaction trans, TransStatus status) {
-        repositorySPI.finishTrans(trans, status);
+    public void finishTrans(String transId, TransStatus status) {
+        repositorySPI.finishTrans(transId, status);
     }
 
+    public boolean executedBranchTrans(String source, String transId, TransProcessResult result) {
+        return repositorySPI.executedBranchTrans(source, transId, result);
+    }
+
+    public Transaction getTrans(String transId) {
+        return repositorySPI.getTrans(transId);
+    }
+
+    public void updateBranchTransStatus(String transId, BranchTransStatus status) {
+        repositorySPI.updateBranchTransStatus(transId, status);
+    }
 }

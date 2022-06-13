@@ -19,6 +19,10 @@ public class Transaction {
     private String transMessage;
     private String producer;
     /**
+     * see {@link com.trans.db.facade.enums.BranchTransStatus}
+     */
+    private String branchTransStatus;
+    /**
      * see {@link com.trans.db.facade.enums.TransStatus}
      */
     private String status;

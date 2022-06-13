@@ -5,6 +5,7 @@ import com.cellulam.trans.msg.db.core.factories.DynamicConfigFactory;
 import com.cellulam.trans.msg.db.core.repository.TransRepository;
 import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
 import com.trans.db.facade.Transaction;
+import com.trans.db.facade.enums.BranchTransStatus;
 import com.trans.db.facade.enums.TransStatus;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -23,14 +24,22 @@ public class BranchTransRegister {
 
     public final static BranchTransRegister instance = new BranchTransRegister();
 
+    public boolean registerBranchTrans(String transId) {
+        return this.registerBranchTrans(TransRepository.instance.getTrans(transId));
+    }
+
     public boolean registerBranchTrans(Transaction trans) {
+        if (BranchTransStatus.REGISTERED.name().equalsIgnoreCase(trans.getBranchTransStatus())) {
+            return true;
+        }
         List<String> consumers = dynamicConfigSPI.getConsumers(trans.getTransType(), trans.getProducer());
         if (CollectionUtils.isEmpty(consumers)) {
-            TransRepository.instance.finishTrans(trans, TransStatus.IGNORED);
+            TransRepository.instance.finishTrans(trans.getTransId(), TransStatus.IGNORED);
             return false;
         }
         consumers.parallelStream()
                 .forEach(x -> TransRepository.instance.registerBranchTrans(x, trans));
+        TransRepository.instance.updateBranchTransStatus(trans.getTransId(), BranchTransStatus.REGISTERED);
         return true;
     }
 }
