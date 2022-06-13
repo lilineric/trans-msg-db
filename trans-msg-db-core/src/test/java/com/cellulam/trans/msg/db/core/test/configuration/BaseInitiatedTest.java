@@ -22,7 +22,7 @@ public abstract class BaseInitiatedTest {
         field.set(TransContext.getContext(), false);
 
         TransMsgInitializer.init(TransConfiguration.builder()
-                .appName("test-app")
+                .appName("order")
                 .messageProviderType("test")
                 .serializeType("json")
                 .repositoryType("test")
@@ -41,7 +41,7 @@ public abstract class BaseInitiatedTest {
         TransMsgInitializer.registerConsumerProcessor(new AbstractTransMessageProcessor<String>() {
             @Override
             public String getProducer() {
-                return "test-app";
+                return "order";
             }
 
             @Override

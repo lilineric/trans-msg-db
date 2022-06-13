@@ -14,8 +14,8 @@ public class TransMessageSenderTest extends BaseInitiatedTest {
 
     @Test
     public void testSend() {
-        String transId = messageSender.send("test-type", "Test1");
-        String transId2 = messageSender.send("test-type","Test2");
+        String transId = messageSender.send("order-success", "Test1");
+        String transId2 = messageSender.send("order-success","Test2");
         Assert.assertNotEquals(transId, transId2);
     }
 }

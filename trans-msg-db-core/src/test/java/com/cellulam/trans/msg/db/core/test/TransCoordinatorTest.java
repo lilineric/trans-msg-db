@@ -22,6 +22,6 @@ public class TransCoordinatorTest extends BaseInitiatedTest {
     }
     @Test
     public void testCommit() {
-        TransCoordinator.instance.asyncCommit("trans-type", "Test body");
+        TransCoordinator.instance.asyncCommit("order-success", "{\"header\":{\"transId\":\"7d23a815-5382-41af-80e6-1d0ab300922a\",\"source\":\"order\",\"transType\":\"order-success\",\"stage\":\"COMMIT\"},\"body\":\"{\\\"id\\\":1,\\\"uid\\\":2,\\\"title\\\":\\\"success-scenario\\\",\\\"status\\\":\\\"success\\\",\\\"amount\\\":1234}\"}");
     }
 }
