@@ -22,8 +22,14 @@ public class MessageSenderFactoryTest {
         MessageProviderSPI messageProviderSPI2 = MessageProviderFactory.getInstance(type);
         Assert.assertEquals(messageProviderSPI, messageProviderSPI2);
 
-        MessageSender messageSender = MessageSenderFactory.getInstance(type);
-        MessageSender messageSender2 = MessageSenderFactory.getInstance(type);
+        MessageSender messageSender = MessageSenderFactory.getConsumerSender(type);
+        MessageSender messageSender2 = MessageSenderFactory.getConsumerSender(type);
+
+        MessageSender messageProducerSender = MessageSenderFactory.getProducerSender(type);
+        MessageSender messageProducerSender2 = MessageSenderFactory.getProducerSender(type);
+
         Assert.assertEquals(messageSender, messageSender2);
+        Assert.assertEquals(messageProducerSender, messageProducerSender2);
+        Assert.assertNotEquals(messageSender, messageProducerSender);
     }
 }

@@ -9,7 +9,10 @@ import com.cellulam.trans.msg.db.core.message.MessageSender;
  * @date 2022-06-11 19:40
  */
 public abstract class MessageSenderFactory {
-    public static MessageSender getInstance(String type) {
-        return MessageProviderFactory.getInstance(type).getMessageSender();
+    public static MessageSender getConsumerSender(String type) {
+        return MessageProviderFactory.getInstance(type).getConsumerMsgSender();
+    }
+    public static MessageSender getProducerSender(String type) {
+        return MessageProviderFactory.getInstance(type).getProducerMsgSender();
     }
 }

@@ -9,22 +9,35 @@ import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
  * @date 2022-06-12 01:57
  */
 public class TestMessageProviderSPI implements MessageProviderSPI {
-    private MessageProcessor messageProcessor;
-    private MessageSender messageSender = new TestMessageSender();
+    private MessageProcessor messageConsumerProcessor;
+    private MessageProcessor messageProducerProcessor;
+    private MessageSender messageConsumerSender = new TestMessageSender();
+    private MessageSender messageProducerSender = new TestMessageSender();
 
     @Override
-    public void registerMessageProcessor(MessageProcessor processor) {
-        this.messageProcessor = processor;
+    public void registerMessageConsumerProcessor(MessageProcessor processor) {
+        this.messageConsumerProcessor = processor;
     }
 
     @Override
-    public MessageSender getMessageSender() {
-        return this.messageSender;
+    public void registerMessageProducerProcessor(MessageProcessor processor) {
+        this.messageProducerProcessor = processor;
+    }
+
+    @Override
+    public MessageSender getProducerMsgSender() {
+        return this.messageProducerSender;
+    }
+
+    @Override
+    public MessageSender getConsumerMsgSender() {
+        return this.messageConsumerSender;
     }
 
     @Override
     public void start() {
-        this.messageProcessor.process("test");
+        this.messageConsumerProcessor.process("test msg");
+        this.messageProducerProcessor.process("test ack msg");
     }
 
     @Override

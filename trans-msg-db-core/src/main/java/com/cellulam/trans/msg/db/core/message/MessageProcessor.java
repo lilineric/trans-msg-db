@@ -12,13 +12,4 @@ public interface MessageProcessor {
      * @return
      */
     boolean process(String message);
-
-    /**
-     * receive ACK by producer
-     *
-     * @param transType
-     * @param transId
-     * @return
-     */
-    boolean receiveACK(String transType, String transId);
 }

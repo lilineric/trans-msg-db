@@ -14,16 +14,28 @@ import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
 @SingletonSPI
 public interface MessageProviderSPI extends TypeSPI {
     /**
-     * register message processor
+     * register message processor of consumer
      * @param processor
      */
-    void registerMessageProcessor(MessageProcessor processor);
+    void registerMessageConsumerProcessor(MessageProcessor processor);
 
     /**
-     * get message sender
+     * register message processor of producer
+     * @param processor
+     */
+    void registerMessageProducerProcessor(MessageProcessor processor);
+
+    /**
+     * get message sender of producer
      * @return
      */
-    MessageSender getMessageSender();
+    MessageSender getProducerMsgSender();
+
+    /**
+     * get message sender of consumer
+     * @return
+     */
+    MessageSender getConsumerMsgSender();
 
     /**
      * start

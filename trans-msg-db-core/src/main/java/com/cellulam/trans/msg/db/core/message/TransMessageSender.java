@@ -2,6 +2,7 @@ package com.cellulam.trans.msg.db.core.message;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.coordinator.TransCoordinator;
+import com.cellulam.trans.msg.db.core.enums.TransStage;
 import com.cellulam.trans.msg.db.core.factories.SerializeFactory;
 import com.cellulam.trans.msg.db.core.factories.UidGeneratorFactory;
 import com.cellulam.trans.msg.db.core.message.model.TransMessage;
@@ -28,6 +29,7 @@ public class TransMessageSender {
         TransMessageHeader header = new TransMessageHeader();
         header.setTransId(transId);
         header.setTransType(transType);
+        header.setStage(TransStage.COMMIT.name());
 
         message.setHeader(header);
         message.setBody(body);

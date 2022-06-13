@@ -1,7 +1,7 @@
 package com.cellulam.trans.msg.db.core.test;
 
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
-import com.cellulam.trans.msg.db.core.message.TransMessageProcessor;
+import com.cellulam.trans.msg.db.core.message.MessageConsumerReceiveProcessor;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
  * @date 2022-06-12 02:56
  */
 public class TransMessageProcessorTest {
-    private MessageProcessor messageProcessor = new TransMessageProcessor();
+    private MessageProcessor messageProcessor = new MessageConsumerReceiveProcessor();
 
     @Test
     public void testProcess() {

@@ -1,12 +1,9 @@
 package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 
-import com.cellulam.trans.msg.db.core.exceptions.TransMessageConfigurationException;
 import com.cellulam.trans.msg.db.core.message.MessageProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageSender;
 import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.UUID;
 
 /**
  * @author eric.li
@@ -14,38 +11,47 @@ import java.util.UUID;
  */
 @Slf4j
 public class RabbitMQMessageProvider implements MessageProviderSPI {
-    private MessageProcessor messageProcessor;
+    private MessageProcessor messageConsumerProcessor;
+    private MessageProcessor messageProducerProcessor;
 
-    private RabbitMQSender messageSender;
+    private RabbitMQSender messageConsumerSender;
+    private RabbitMQSender messageProducerSender;
 
     public RabbitMQMessageProvider() {
-        this.messageSender = new RabbitMQSender();
+        this.messageConsumerSender = new RabbitMQSender();
+        this.messageProducerSender = new RabbitMQSender();
     }
 
     @Override
-    public void registerMessageProcessor(MessageProcessor processor) {
-        this.messageProcessor = processor;
+    public void registerMessageConsumerProcessor(MessageProcessor processor) {
+        this.messageConsumerProcessor = processor;
     }
 
     @Override
-    public MessageSender getMessageSender() {
-        return this.messageSender;
+    public void registerMessageProducerProcessor(MessageProcessor processor) {
+        this.messageProducerProcessor = processor;
+    }
+
+    @Override
+    public MessageSender getProducerMsgSender() {
+        return this.messageProducerSender;
+    }
+
+    @Override
+    public MessageSender getConsumerMsgSender() {
+        return this.messageConsumerSender;
     }
 
     @Override
     public void start() {
-        this.checkStatus();
+        if(this.messageConsumerProcessor != null) {
+            //TODO listen MQ success and invoke messageProcessor
+            this.messageConsumerProcessor.process("test process message");
+        }
 
-        //TODO listen MQ success and invoke messageProcessor
-        this.messageProcessor.process("test process message");
-
-        //TODO listen ACK message and invoke ack
-        this.messageProcessor.receiveACK("order-success", UUID.randomUUID().toString());
-    }
-
-    private void checkStatus() {
-        if (this.messageProcessor == null) {
-            throw new TransMessageConfigurationException("The messageProcessor is unregistered.");
+        if(this.messageProducerProcessor != null) {
+            //TODO listen ACK message and invoke ack
+            this.messageProducerProcessor.process("test ack message");
         }
     }
 

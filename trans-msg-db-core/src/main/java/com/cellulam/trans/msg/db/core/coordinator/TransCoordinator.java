@@ -18,12 +18,12 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class TransCoordinator {
 
-    private final MessageSender messageSender;
+    private final MessageSender consumerMessageSender;
 
     private final ExecutorService messageSendThreadPool;
 
     private TransCoordinator() {
-        this.messageSender = MessageSenderFactory.getInstance(TransContext.getConfiguration().getMessageProviderType());
+        this.consumerMessageSender = MessageSenderFactory.getConsumerSender(TransContext.getConfiguration().getMessageProviderType());
         this.messageSendThreadPool = Executors.newFixedThreadPool(TransContext.getConfiguration().getMessageSendThreadPoolSize());
     }
 
@@ -53,7 +53,7 @@ public class TransCoordinator {
 
     private void sendMessage(String transType, String message) {
         try {
-            this.messageSender.send(transType, message);
+            this.consumerMessageSender.send(transType, message);
         } catch (Exception e) {
             throw new TransMessageSendException("Failed to send message: " + message, e);
         }

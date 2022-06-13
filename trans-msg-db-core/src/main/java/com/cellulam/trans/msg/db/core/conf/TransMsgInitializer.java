@@ -2,7 +2,8 @@ package com.cellulam.trans.msg.db.core.conf;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
-import com.cellulam.trans.msg.db.core.message.TransMessageProcessor;
+import com.cellulam.trans.msg.db.core.message.MessageConsumerReceiveProcessor;
+import com.cellulam.trans.msg.db.core.message.MessageProducerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.recovery.MessageRecover;
 import com.cellulam.trans.msg.db.core.spi.MessageProviderSPI;
 
@@ -28,7 +29,8 @@ public abstract class TransMsgInitializer {
     private static void start(TransConfiguration configuration) {
         // start message provider
         MessageProviderSPI messageProvider = MessageProviderFactory.getInstance(configuration.getMessageProviderType());
-        messageProvider.registerMessageProcessor(new TransMessageProcessor());
+        messageProvider.registerMessageConsumerProcessor(new MessageConsumerReceiveProcessor());
+        messageProvider.registerMessageProducerProcessor(new MessageProducerReceiveProcessor());
         messageProvider.start();
 
         // start message recover
