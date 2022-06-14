@@ -6,7 +6,9 @@ import com.cellulam.trans.msg.db.mysql.dao.mappers.BranchTransactionMapper;
 import com.trans.db.facade.BranchTransaction;
 import com.trans.db.facade.Transaction;
 import com.trans.db.facade.enums.TransProcessResult;
+import org.apache.ibatis.exceptions.PersistenceException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
@@ -35,8 +37,16 @@ public class BranchTransactionDaoImpl extends AbstractDao<BranchTransactionMappe
             branchTransaction.setTransId(trans.getTransId());
             branchTransaction.setConsumer(consumer);
 
-            //ignore TODO
-            return branchTransactionMapper.insert(branchTransaction) > 0;
+            try {
+                return branchTransactionMapper.insert(branchTransaction) > 0;
+            } catch (PersistenceException e) {
+                if (e.getCause() != null && e.getCause() instanceof SQLIntegrityConstraintViolationException) {
+                    //ignore SQLIntegrityConstraintViolationException
+                    return false;
+                } else {
+                    throw e;
+                }
+            }
         });
     }
 

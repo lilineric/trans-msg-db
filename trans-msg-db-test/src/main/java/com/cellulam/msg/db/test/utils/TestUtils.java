@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Slf4j
 public final class TestUtils {
-    private static final Set<String> EMPTY_IGNORE_FIELDS = Sets.newHashSet();
+    private static final Set<String> EMPTY_IGNORE_FIELDS = Sets.newHashSet("serialVersionUID");
 
     public static final void assertSameObject(Object except, Object object) throws Exception {
         assertSameObject(except, object, EMPTY_IGNORE_FIELDS);

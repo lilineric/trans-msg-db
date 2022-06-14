@@ -1,5 +1,6 @@
 package com.cellulam.trans.msg.db.core.test;
 
+import com.cellulam.msg.db.test.utils.TestUtils;
 import com.cellulam.trans.msg.db.core.conf.TransConfiguration;
 import com.cellulam.trans.msg.db.core.conf.TransMsgInitializer;
 import com.cellulam.trans.msg.db.core.context.TransContext;
@@ -72,6 +73,16 @@ public class IntegrationTest {
 
     public static void registerConsumerProcessor() {
         TransMsgInitializer.registerConsumerProcessor(new OrderTransMessageProcessor());
+    }
+
+    @Test
+    public void testUniqueIgnore() throws Exception {
+        reset("order");
+
+        Transaction transaction = TestUtils.randomBean(Transaction.class);
+        repositorySPI.registerBranchTrans("test123", "test", transaction);
+        repositorySPI.registerBranchTrans("test123", "test", transaction);
+        repositorySPI.registerBranchTrans("test123", "test12", transaction);
     }
 
     @Test
