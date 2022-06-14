@@ -1,10 +1,12 @@
 package com.cellulam.trans.msg.db.mysql.dao.mappers;
 
 import com.trans.db.facade.BranchTransaction;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface BranchTransactionMapper {
 
     List<BranchTransaction> getBranchTrans(String transId);

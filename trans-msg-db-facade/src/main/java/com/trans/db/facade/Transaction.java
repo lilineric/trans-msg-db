@@ -2,6 +2,7 @@ package com.trans.db.facade;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Transaction {
+public class Transaction implements Serializable {
+
+    private static final long serialVersionUID = -4950248934017192219L;
+
     private String transType;
     private String transId;
     private String transMessage;

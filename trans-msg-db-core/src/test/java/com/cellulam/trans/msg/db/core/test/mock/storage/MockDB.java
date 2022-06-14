@@ -21,9 +21,10 @@ public class MockDB {
 
     static {
         HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/order_db?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8");
+        hikariDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/test_tx_db?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8");
         hikariDataSource.setUsername("root");
         hikariDataSource.setPassword("root123");
         dataSource = hikariDataSource;
+
     }
 }

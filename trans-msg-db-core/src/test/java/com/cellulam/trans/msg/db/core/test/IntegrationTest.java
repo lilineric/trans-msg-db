@@ -6,12 +6,14 @@ import com.cellulam.trans.msg.db.core.context.TransContext;
 import com.cellulam.trans.msg.db.core.coordinator.TransCoordinator;
 import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
 import com.cellulam.trans.msg.db.core.factories.MessageSenderFactory;
+import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
 import com.cellulam.trans.msg.db.core.message.ConsumerProcessorWrap;
 import com.cellulam.trans.msg.db.core.message.TransMessageSender;
 import com.cellulam.trans.msg.db.core.test.mock.storage.MockDB;
 import com.cellulam.trans.msg.db.core.test.mock.storage.MockMQ;
 import com.cellulam.trans.msg.db.core.test.spi.TestMessageProviderSPI;
 import com.cellulam.trans.msg.db.core.test.spi.TestMessageSender;
+import com.cellulam.trans.msg.db.spi.RepositorySPI;
 import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import com.trans.db.facade.AbstractTransMessageProcessor;
 import com.trans.db.facade.TransMessageProcessor;
@@ -34,10 +36,10 @@ import java.lang.reflect.Field;
  * @date 2022-06-13 15:28
  */
 public class IntegrationTest {
+    private RepositorySPI repositorySPI = RepositoryFactory.getInstance("mysql");
+
     @Before
     public void before() {
-        MockDB.transactionMap.clear();
-        MockDB.branchMap.clear();
         MockMQ.clear();
     }
 
@@ -54,7 +56,7 @@ public class IntegrationTest {
                 .appName(appName)
                 .messageProviderType("test")
                 .serializeType("json")
-                .repositoryType("test")
+                .repositoryType("mysql")
                 .messageSendThreadPoolSize(1)
                 .recoverExecPeriodSeconds(recoverExecPeriodSeconds)
                 .recoverFixPeriodSeconds(recoverFixPeriodSeconds)
@@ -93,7 +95,7 @@ public class IntegrationTest {
         MessageProviderFactory.getInstance("test")
                 .start();
 
-        Transaction transaction = MockDB.transactionMap.get(transId);
+        Transaction transaction = repositorySPI.getTrans(transId);
         Assert.assertNull(transaction);
 
     }
@@ -124,7 +126,7 @@ public class IntegrationTest {
         MessageProviderFactory.getInstance("test")
                 .start();
 
-        Transaction transaction = MockDB.transactionMap.get(transId);
+        Transaction transaction = repositorySPI.getTrans(transId);
         Assert.assertNull(transaction);
 
     }
@@ -155,7 +157,7 @@ public class IntegrationTest {
         MessageProviderFactory.getInstance("test")
                 .start();
 
-        Transaction transaction = MockDB.transactionMap.get(transId);
+        Transaction transaction = repositorySPI.getTrans(transId);
         Assert.assertNull(transaction);
 
     }
@@ -170,7 +172,7 @@ public class IntegrationTest {
         order.setAmount(1234L);
 
         String transId = messageSender.send(transType, order);
-        Transaction transaction = MockDB.transactionMap.get(transId);
+        Transaction transaction = repositorySPI.getTrans(transId);
         Assert.assertEquals(transId, transaction.getTransId());
         Assert.assertEquals(TransStatus.SENDING.name(), transaction.getStatus());
         System.out.println(transaction);

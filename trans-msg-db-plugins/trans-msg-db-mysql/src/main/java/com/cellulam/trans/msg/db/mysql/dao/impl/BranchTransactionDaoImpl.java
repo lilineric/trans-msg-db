@@ -18,7 +18,7 @@ public class BranchTransactionDaoImpl extends AbstractDao<BranchTransactionMappe
     public boolean finishTrans(String branchTransId) {
         return execute(branchTransactionMapper -> {
             BranchTransaction transaction = branchTransactionMapper.getBranchTransactionById(branchTransId);
-            if (transaction != null && TransProcessResult.SUCCESS.equals(transaction.getResult())) {
+            if (transaction != null && TransProcessResult.SUCCESS.name().equals(transaction.getResult())) {
                 branchTransactionMapper.insertHistory(transaction);
                 branchTransactionMapper.delete(branchTransId);
                 return true;

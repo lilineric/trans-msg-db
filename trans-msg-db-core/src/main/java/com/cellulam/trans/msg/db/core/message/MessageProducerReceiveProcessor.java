@@ -31,6 +31,7 @@ public class MessageProducerReceiveProcessor extends AbstractMessageReceiveProce
                 transMessage.getHeader().getTransId(),
                 processResult);
         if (!result) {
+            log.debug("No branch transactions for trans: {}, re-register", transMessage.getHeader().getTransId());
             if (!BranchTransRegister.instance.registerBranchTrans(transMessage.getHeader().getTransId())) {
                 return false;
             }

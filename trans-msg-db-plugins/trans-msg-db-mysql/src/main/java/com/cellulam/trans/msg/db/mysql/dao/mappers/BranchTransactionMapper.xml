@@ -39,7 +39,7 @@
     </select>
 
     <update id="updateResult" parameterType="map">
-        update tx_branch_transaction set result = #{result} and branch_trans_id = #{branchTransId}
+        update tx_branch_transaction set result = #{result} where branch_trans_id = #{branchTransId}
     </update>
 
 </mapper>

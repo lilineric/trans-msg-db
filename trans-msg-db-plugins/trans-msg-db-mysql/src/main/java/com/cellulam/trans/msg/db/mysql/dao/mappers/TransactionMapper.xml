@@ -8,7 +8,7 @@
         <result column="producer" jdbcType="VARCHAR" property="producer" />
         <result column="branch_trans_status" jdbcType="VARCHAR" property="branchTransStatus" />
         <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="retry_count" jdbcType="INT" property="retryCount" />
+        <result column="retry_count" jdbcType="INTEGER" property="retryCount" />
         <result column="last_retry_time" jdbcType="TIMESTAMP" property="lastRetryTime" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
         <result column="modified" jdbcType="TIMESTAMP" property="modified" />
@@ -40,6 +40,7 @@
     </update>
 
     <update id="tryExecute" parameterType="map">
+        update tx_transaction
         set status = #{status},
           retry_count = retry_count + 1,
           last_retry_time = now()
@@ -58,7 +59,7 @@
         insert tx_transaction_history (trans_id, trans_type, trans_message, producer,
         branch_trans_status, status, retry_count, created, modified, finish_time)
         value (#{transId}, #{transType}, #{transMessage}, #{producer},
-        branch_trans_status, #{status}, #{retryCount}, #{created}, #{modified}, now())
+        #{branchTransStatus}, #{status}, #{retryCount}, #{created}, #{modified}, now())
     </insert>
 
 </mapper>
