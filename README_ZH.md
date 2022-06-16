@@ -6,6 +6,7 @@
 适用于对资源隔离性没有要求的异步场景。
 
 ## 快速开始
+实例参考 trans-msg-db-sample，运行需要先执行 init.sql。
 ### Spring Boot 项目
 引入依赖
 ```xml
@@ -30,58 +31,53 @@ public void consume() {
     ...
 }
 ```
-
-### 非 Spring 项目
-暂时还没有做开箱即用的集成，需要自己编写拦截器，继承`TransMsgProducerInterceptor`和`TransMsgConsumerInterceptor`，并且需要实现本地事务管理，在`TransMsgProducerInterceptor`拦截器执行之前开启本地事务。
-
-下面是参考步骤：
-#### 引入依赖
-```xml
-<dependency>
-    <groupId>com.cellulam</groupId>
-    <artifactId>trans-msg-db-core</artifactId>
-    <version>1.0-SNAPSHOT</version>
-</dependency>
+### trans-msg.yml 配置
+```yaml
+trans-msg:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+  dynamic:
+    message:
+      order:
+        success:
+        - member
 ```
-#### 编织 trans-msg-db-core
-使用 aspectj-maven-plugin编织，配置参考[官方文档](https://www.mojohaus.org/aspectj-maven-plugin/examples/weaveJars.html)
+### 生产方调用 TransMessageSender.send
+```java
+@Service
+public class OrderService {
 
-例如：
-```xml
+    @Autowired
+    private TransMessageSender transMessageSender;
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.14.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <complianceLevel>${java.version}</complianceLevel>
-                    <skip>true</skip>
-                    <showWeaveInfo>true</showWeaveInfo>
-                    <weaveDependencies>
-                        <weaveDependency>
-                            <groupId>com.cellulam</groupId>
-                            <artifactId>trans-msg-db-core</artifactId>
-                        </weaveDependency>
-                    </weaveDependencies>
-                </configuration>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <skip>false</skip>
-                        </configuration>
-                        <goals>
-                            <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
-                            <goal>test-compile</goal>  <!-- use this goal to weave all your test classes -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    @Transactional
+    public void placeOrder() {
+        // Business process
+
+        transMessageSender.send("success", orderDTO);
+    }
+}
+```
+
+### 消费方实现 TransMessageProcessor 接口（可以直接集成 AbstractTransMessageProcessor 抽象方法）
+```java
+@Component
+public class OrderSuccessProcessor extends AbstractTransMessageProcessor<OrderDto> {
+    @Override
+    public String getProducer() {
+        return "order";
+    }
+
+    @Override
+    public String getTransType() {
+        return "success";
+    }
+
+    @Override
+    public TransProcessResult process(OrderDto body) {
+        return TransProcessResult.SUCCESS;
+    }
+}
 ```
 
 ## 流程
