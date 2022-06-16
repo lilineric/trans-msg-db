@@ -16,6 +16,7 @@
         <module>trans-msg-db-test</module>
         <module>trans-msg-db-facade</module>
         <module>trans-msg-db-common</module>
+        <module>trans-msg-db-plugins/trans-msg-db-rocketmq</module>
     </modules>
     <packaging>pom</packaging>
 
