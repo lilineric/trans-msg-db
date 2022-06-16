@@ -1,1 +1,2 @@
 com.cellulam.trans.msg.db.core.test.spi.TestDynamicConfigSPI
+com.cellulam.msg.db.dynamic.config.properties.PropertiesDynamicConfig

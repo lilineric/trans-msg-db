@@ -1,1 +1,2 @@
 com.cellulam.trans.msg.db.core.test.spi.TestMessageProviderSPI
+com.cellulam.trans.msg.db.kafka.KafkaMQMessageProvider

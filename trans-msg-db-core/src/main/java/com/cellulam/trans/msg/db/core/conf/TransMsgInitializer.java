@@ -1,12 +1,14 @@
 package com.cellulam.trans.msg.db.core.conf;
 
 import com.cellulam.trans.msg.db.core.context.TransContext;
+import com.cellulam.trans.msg.db.core.factories.DynamicConfigFactory;
 import com.cellulam.trans.msg.db.core.factories.MessageProviderFactory;
 import com.cellulam.trans.msg.db.core.factories.RepositoryFactory;
 import com.cellulam.trans.msg.db.core.message.ConsumerProcessorWrap;
 import com.cellulam.trans.msg.db.core.message.MessageConsumerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.message.MessageProducerReceiveProcessor;
 import com.cellulam.trans.msg.db.core.recovery.MessageRecover;
+import com.cellulam.trans.msg.db.spi.DynamicConfigSPI;
 import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
 import com.google.common.collect.Maps;
 import com.trans.db.facade.TransMessageProcessor;
@@ -24,6 +26,7 @@ import java.util.Map;
 public abstract class TransMsgInitializer {
 
     private static Map<String, ConsumerProcessorWrap<? extends Serializable>> consumerProcessors;
+    private static DynamicConfigSPI dynamicConfigSPI;
 
     /**
      * init
@@ -37,6 +40,8 @@ public abstract class TransMsgInitializer {
 
         RepositoryFactory.getInstance(configuration.getRepositoryType())
                 .init(configuration.getDataSource());
+
+        dynamicConfigSPI = DynamicConfigFactory.getInstance(configuration.getDynamicConfigType());
     }
 
     public static <T extends Serializable> ConsumerProcessorWrap<T> registerConsumerProcessor(TransMessageProcessor<T> processor) {
@@ -51,8 +56,13 @@ public abstract class TransMsgInitializer {
     }
 
     public static void start() {
+        String appName = TransContext.getConfiguration().getAppName();
         // start message provider
         MessageProviderSPI messageProvider = MessageProviderFactory.getInstance(TransContext.getConfiguration().getMessageProviderType());
+        messageProvider.init(appName,
+                dynamicConfigSPI.getRegistersByConsumer(appName),
+                dynamicConfigSPI.getTransTypes(appName)
+        );
 
         if (MapUtils.isNotEmpty(consumerProcessors)) {
             messageProvider.registerMessageConsumerProcessor(new MessageConsumerReceiveProcessor(consumerProcessors));

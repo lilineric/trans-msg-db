@@ -61,7 +61,7 @@ public class IntegrationTest {
                 .messageSendThreadPoolSize(1)
                 .recoverExecPeriodSeconds(recoverExecPeriodSeconds)
                 .recoverFixPeriodSeconds(recoverFixPeriodSeconds)
-                .dynamicConfigType("test")
+                .dynamicConfigType("properties")
                 .uidGeneratorType("uuid")
                 .dataSource(MockDB.dataSource)
                 .build());

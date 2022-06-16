@@ -25,8 +25,4 @@ public class TestMessageSender implements MessageSender {
         }
     }
 
-    @Override
-    public void send(String source, String transType, byte[] message) {
-        System.out.println(transType + " send message " + message);
-    }
 }
