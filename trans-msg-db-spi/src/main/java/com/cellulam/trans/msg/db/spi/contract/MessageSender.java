@@ -10,17 +10,9 @@ public interface MessageSender {
     /**
      * send message
      *
-     * @param source
+     * @param rootSource
      * @param transType
      * @param message
      */
-    void send(String source, String transType, String message);
-
-    /**
-     * send message
-     * @param source
-     * @param transType
-     * @param message
-     */
-    void send(String source, String transType, byte[] message);
+    void send(String rootSource, String transType, String message);
 }

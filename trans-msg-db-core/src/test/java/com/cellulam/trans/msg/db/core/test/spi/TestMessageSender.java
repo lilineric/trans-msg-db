@@ -17,7 +17,7 @@ public class TestMessageSender implements MessageSender {
     }
 
     @Override
-    public void send(String source, String transType, String message) {
+    public void send(String rootSource, String transType, String message) {
         if (transStage == TransStage.COMMIT) {
             MockMQ.queue.offer(message);
         } else if (transStage == TransStage.ACK) {

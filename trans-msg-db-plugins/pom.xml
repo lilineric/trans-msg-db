@@ -17,6 +17,7 @@
         <module>trans-msg-db-dynamic-config-properties</module>
         <module>trans-msg-db-uuid</module>
         <module>trans-msg-db-mysql</module>
+        <module>trans-msg-db-kafka</module>
     </modules>
 
     <dependencies>
@@ -27,6 +28,10 @@
         <dependency>
             <groupId>com.cellulam</groupId>
             <artifactId>trans-msg-db-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-common</artifactId>
         </dependency>
     </dependencies>
 

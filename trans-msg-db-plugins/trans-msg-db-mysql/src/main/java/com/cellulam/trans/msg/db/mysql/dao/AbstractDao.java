@@ -2,7 +2,7 @@ package com.cellulam.trans.msg.db.mysql.dao;
 
 import com.cellulam.trans.msg.db.mysql.SqlSessionFactoryHolder;
 import com.cellulam.trans.msg.db.mysql.exceptions.DbException;
-import com.trans.db.facade.utils.ClassUtil;
+import com.cellulam.trans.msg.db.common.utils.ClassUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 

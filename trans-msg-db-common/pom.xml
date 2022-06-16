@@ -9,17 +9,24 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>trans-msg-db-facade</artifactId>
-
+    <artifactId>trans-msg-db-common</artifactId>
+    <packaging>jar</packaging>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.cellulam</groupId>
-            <artifactId>trans-msg-db-common</artifactId>
-        </dependency>
     </dependencies>
+
 
 </project>

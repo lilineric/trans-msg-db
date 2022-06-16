@@ -1,6 +1,6 @@
-spring:
-  trans:
-    consumers:
+trans-msg:
+  dynamic:
+    message:
       order:
         order-success:
           - coupon
@@ -8,4 +8,5 @@ spring:
         order-cancel:
           - inventory
           - member
+
 

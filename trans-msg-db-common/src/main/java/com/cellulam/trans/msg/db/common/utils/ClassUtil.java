@@ -1,4 +1,4 @@
-package com.trans.db.facade.utils;
+package com.cellulam.trans.msg.db.common.utils;
 
 import org.apache.commons.lang3.ClassUtils;
 

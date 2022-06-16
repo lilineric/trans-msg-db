@@ -4,6 +4,9 @@ import com.cellulam.trans.msg.db.spi.anotation.SingletonSPI;
 import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
 import com.cellulam.trans.msg.db.spi.contract.MessageSender;
 import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
+import com.trans.db.facade.ConsumerRegister;
+
+import java.util.List;
 
 /**
  * message provider SPI
@@ -14,25 +17,36 @@ import com.cellulam.trans.msg.db.spi.contract.TypeSPI;
 @SingletonSPI
 public interface MessageProviderSPI extends TypeSPI {
     /**
+     * init
+     *
+     * @param appName
+     */
+    void init(String appName, List<ConsumerRegister> consumerRegisters, List<String> transTypes);
+
+    /**
      * register message processor of consumer
+     *
      * @param processor
      */
     void registerMessageConsumerProcessor(MessageProcessor processor);
 
     /**
      * register message processor of producer
+     *
      * @param processor
      */
     void registerMessageProducerProcessor(MessageProcessor processor);
 
     /**
      * get message sender of producer
+     *
      * @return
      */
     MessageSender getProducerMsgSender();
 
     /**
      * get message sender of consumer
+     *
      * @return
      */
     MessageSender getConsumerMsgSender();

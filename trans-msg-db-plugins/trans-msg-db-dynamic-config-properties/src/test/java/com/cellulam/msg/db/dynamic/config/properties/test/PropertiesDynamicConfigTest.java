@@ -1,30 +1,21 @@
 package com.cellulam.msg.db.dynamic.config.properties.test;
 
 import com.cellulam.msg.db.dynamic.config.properties.PropertiesDynamicConfig;
+import com.trans.db.facade.ConsumerRegister;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author eric.li
  * @date 2022-06-12 23:33
  */
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@SpringBootConfiguration
-@EnableAutoConfiguration
-@ComponentScan("com.cellulam.msg.db.dynamic.config.properties")
 public class PropertiesDynamicConfigTest {
-    @Autowired
-    private PropertiesDynamicConfig dynamicConfig;
+    private PropertiesDynamicConfig dynamicConfig = new PropertiesDynamicConfig();
 
     @Test
     public void testGetConsumers() {
@@ -37,5 +28,34 @@ public class PropertiesDynamicConfigTest {
         Assert.assertEquals("inventory", consumers.get(0));
         Assert.assertEquals("member", consumers.get(1));
         System.out.println(consumers);
+    }
+
+    @Test
+    public void testGetRegisters() {
+        List<ConsumerRegister> coupons = dynamicConfig.getRegistersByConsumer("coupon");
+        List<ConsumerRegister> inventories = dynamicConfig.getRegistersByConsumer("inventory");
+        List<ConsumerRegister> members = dynamicConfig.getRegistersByConsumer("member");
+
+        Assert.assertEquals(1, coupons.size());
+        Assert.assertEquals(1, inventories.size());
+        Assert.assertEquals(2, members.size());
+
+        Assert.assertEquals("order", coupons.get(0).getProducer());
+        Assert.assertEquals("order", inventories.get(0).getProducer());
+        Assert.assertEquals("order", members.get(0).getProducer());
+        Assert.assertEquals("order", members.get(1).getProducer());
+
+        Assert.assertEquals("order-success", coupons.get(0).getTransType());
+        Assert.assertEquals("order-cancel", inventories.get(0).getTransType());
+        Assert.assertEquals("order-success", members.get(0).getTransType());
+        Assert.assertEquals("order-cancel", members.get(1).getTransType());
+    }
+
+    @Test
+    public void testGetTransTypes() {
+        List<String> orders = dynamicConfig.getTransTypes("order");
+        Assert.assertEquals(2, orders.size());
+        Assert.assertEquals("order-success", orders.get(0));
+        Assert.assertEquals("order-cancel", orders.get(1));
     }
 }

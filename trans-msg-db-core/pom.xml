@@ -19,6 +19,10 @@
             <groupId>com.cellulam</groupId>
             <artifactId>trans-msg-db-spi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-common</artifactId>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>

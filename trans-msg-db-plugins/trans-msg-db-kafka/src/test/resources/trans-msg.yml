@@ -1,0 +1,10 @@
+trans-msg:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    auto-create-topic: true
+    linger-ms: 0
+    auto-commit-interval-ms: 1
+    consumer-session-timeout-ms: 299500
+    consumer-request-timeout-ms: 300000
+    fetch-max-wait-ms: 500
+    group-instance-id: test-instance

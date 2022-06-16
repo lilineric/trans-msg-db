@@ -1,6 +1,7 @@
 package com.trans.db.facade;
 
-import com.trans.db.facade.utils.ClassUtil;
+
+import com.cellulam.trans.msg.db.common.utils.ClassUtil;
 
 import java.io.Serializable;
 
