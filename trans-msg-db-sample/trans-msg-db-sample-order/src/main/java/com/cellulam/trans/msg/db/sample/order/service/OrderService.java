@@ -24,7 +24,7 @@ public class OrderService {
     private TransMessageSender transMessageSender;
 
     @Transactional
-    public void placeOrder() {
+    public long placeOrder() {
         OrderBean order = new OrderBean();
         order.setUid(RandomUtils.nextLong());
         order.setTitle("title-" + UUIDUtils.randomUUID32());
@@ -36,5 +36,6 @@ public class OrderService {
         orderDao.updateStatus(order.getId(), OrderStatus.SUCCESS.name());
 
         transMessageSender.send("order-success", order);
+        return order.getId();
     }
 }

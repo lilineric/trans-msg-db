@@ -3,7 +3,10 @@ package com.cellulam.trans.msg.db.spring.rabbitmq.message;
 import com.cellulam.trans.msg.db.spi.MessageProviderSPI;
 import com.cellulam.trans.msg.db.spi.contract.MessageProcessor;
 import com.cellulam.trans.msg.db.spi.contract.MessageSender;
+import com.trans.db.facade.ConsumerRegister;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * @author eric.li
@@ -20,6 +23,11 @@ public class RabbitMQMessageProvider implements MessageProviderSPI {
     public RabbitMQMessageProvider() {
         this.messageConsumerSender = new RabbitMQSender();
         this.messageProducerSender = new RabbitMQSender();
+    }
+
+    @Override
+    public void init(String appName, List<ConsumerRegister> consumerRegisters, List<String> transTypes) {
+
     }
 
     @Override

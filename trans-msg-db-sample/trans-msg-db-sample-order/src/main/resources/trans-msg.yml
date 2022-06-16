@@ -1,0 +1,12 @@
+trans-msg:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    auto-create-topic: true
+    group-instance-id: order
+  dynamic:
+    message:
+      order:
+        order-success:
+        - coupon
+
+

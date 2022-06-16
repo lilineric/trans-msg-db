@@ -53,18 +53,19 @@ public class IntegrationTest {
         field.setAccessible(true);
         field.set(TransContext.getContext(), false);
 
-        TransMsgInitializer.init(TransConfiguration.builder()
-                .appName(appName)
-                .messageProviderType("test")
-                .serializeType("json")
-                .repositoryType("mysql")
-                .messageSendThreadPoolSize(1)
-                .recoverExecPeriodSeconds(recoverExecPeriodSeconds)
-                .recoverFixPeriodSeconds(recoverFixPeriodSeconds)
-                .dynamicConfigType("properties")
-                .uidGeneratorType("uuid")
-                .dataSource(MockDB.dataSource)
-                .build());
+        TransConfiguration transConfiguration = new TransConfiguration();
+        transConfiguration.setAppName(appName);
+        transConfiguration.setMessageProviderType("test");
+        transConfiguration.setRepositoryType("mysql");
+        transConfiguration.setSerializeType("json");
+        transConfiguration.setDynamicConfigType("properties");
+        transConfiguration.setDataSource(MockDB.dataSource);
+        transConfiguration.setUidGeneratorType("uuid");
+        transConfiguration.setMessageSendThreadPoolSize(1);
+        transConfiguration.setRecoverExecPeriodSeconds(recoverExecPeriodSeconds);
+        transConfiguration.setRecoverFixPeriodSeconds(recoverFixPeriodSeconds);
+
+        TransMsgInitializer.init(transConfiguration);
 
         registerConsumerProcessor();
 

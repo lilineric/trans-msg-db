@@ -1,7 +1,7 @@
 package com.cellulam.trans.msg.db.core.conf;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  */
 @Data
 @ToString
-@Builder
+@NoArgsConstructor
 public class TransConfiguration {
     @NonNull
     private String appName;
@@ -27,26 +27,21 @@ public class TransConfiguration {
     private String dynamicConfigType;
     @NonNull
     private DataSource dataSource;
-
-    @Builder.Default
+    @NonNull
     private String uidGeneratorType;
 
-    @Builder.Default
     private int messageSendThreadPoolSize = 10;
     /**
      * Recover the frequency of execution
      */
-    @Builder.Default
     private long recoverExecPeriodSeconds = 30;
     /**
      * Recover the frequency of fixing trying
      */
-    @Builder.Default
     private long recoverFixPeriodSeconds = 120;
     /**
      * The timeout for transaction retry execution.
      * If this time is exceeded and no ACK is received, the state is reset and retried on the next retry period.
      */
-    @Builder.Default
     private long transTryTimeoutSeconds = 600;
 }

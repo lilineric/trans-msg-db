@@ -1,2 +1,2 @@
 # Auto Configuration
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.cellulam.trans.msg.db.spring.autoconfigure.TransMsgAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.cellulam.trans.msg.db.spring.autoconfigure.TransMsgAutoConfiguration,\

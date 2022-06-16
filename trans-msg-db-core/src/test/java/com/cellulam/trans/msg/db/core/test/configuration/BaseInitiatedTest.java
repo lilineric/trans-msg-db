@@ -21,16 +21,17 @@ public abstract class BaseInitiatedTest {
         field.setAccessible(true);
         field.set(TransContext.getContext(), false);
 
-        TransMsgInitializer.init(TransConfiguration.builder()
-                .appName("order")
-                .messageProviderType("test")
-                .serializeType("json")
-                .repositoryType("test")
-                .messageSendThreadPoolSize(1)
-                .dynamicConfigType("test")
-                .uidGeneratorType("uuid")
-                .dataSource(MockDB.dataSource)
-                .build());
+        TransConfiguration transConfiguration = new TransConfiguration();
+        transConfiguration.setAppName("order");
+        transConfiguration.setMessageProviderType("test");
+        transConfiguration.setRepositoryType("test");
+        transConfiguration.setSerializeType("json");
+        transConfiguration.setDynamicConfigType("test");
+        transConfiguration.setDataSource(MockDB.dataSource);
+        transConfiguration.setUidGeneratorType("uuid");
+        transConfiguration.setMessageSendThreadPoolSize(1);
+
+        TransMsgInitializer.init(transConfiguration);
 
         registerConsumerProcessor();
 

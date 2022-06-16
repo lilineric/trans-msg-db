@@ -14,9 +14,4 @@ public class RabbitMQSender implements MessageSender {
     public void send(String rootSource, String transType, String message) {
         log.info("{} message send to RabbitMQ: {}", transType, message);
     }
-
-    @Override
-    public void send(String source, String transType, byte[] message) {
-        log.info("{} message send to RabbitMQ: {}", transType, message);
-    }
 }

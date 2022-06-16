@@ -17,6 +17,31 @@
             <groupId>com.cellulam</groupId>
             <artifactId>trans-msg-db-spring-autoconfigure</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-dynamic-config-properties</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-kafka</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-mysql</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-json</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cellulam</groupId>
+            <artifactId>trans-msg-db-uuid</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
