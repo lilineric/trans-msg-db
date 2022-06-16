@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: coupon
+
+
+server:
+  port: 1878
+
+

@@ -26,9 +26,12 @@ public class TransConfiguration {
     @NonNull
     private String dynamicConfigType;
     @NonNull
-    private DataSource dataSource;
-    @NonNull
     private String uidGeneratorType;
+
+    /**
+     * data source
+     */
+    private DataSource dataSource;
 
     private int messageSendThreadPoolSize = 10;
     /**

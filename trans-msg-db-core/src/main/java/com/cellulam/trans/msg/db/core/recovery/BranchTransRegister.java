@@ -9,6 +9,7 @@ import com.cellulam.trans.msg.db.spi.UidGeneratorSPI;
 import com.trans.db.facade.Transaction;
 import com.trans.db.facade.enums.BranchTransStatus;
 import com.trans.db.facade.enums.TransStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author eric.li
  * @date 2022-06-12 22:20
  */
+@Slf4j
 public class BranchTransRegister {
     private final DynamicConfigSPI dynamicConfigSPI;
     private final UidGeneratorSPI uidGeneratorSPI;
@@ -29,7 +31,12 @@ public class BranchTransRegister {
     public final static BranchTransRegister instance = new BranchTransRegister();
 
     public boolean registerBranchTrans(String transId) {
-        return this.registerBranchTrans(TransRepository.instance.getTrans(transId));
+        Transaction transaction = TransRepository.instance.getTrans(transId);
+        if (transaction == null) {
+            log.info("Cannot find trans: {}", transId);
+            return false;
+        }
+        return this.registerBranchTrans(transaction);
     }
 
     public boolean registerBranchTrans(Transaction trans) {

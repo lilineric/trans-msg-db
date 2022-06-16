@@ -11,6 +11,8 @@
     <modules>
         <module>trans-msg-db-sample-order</module>
         <module>trans-msg-db-sample-common</module>
+        <module>trans-msg-db-sample-member</module>
+        <module>trans-msg-db-sample-coupon</module>
     </modules>
 
     <properties>

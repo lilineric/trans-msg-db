@@ -1,17 +1,21 @@
 package com.cellulam.trans.db.spring.configuration;
 
 import com.cellulam.trans.msg.db.core.conf.TransConfiguration;
+import com.cellulam.trans.msg.db.core.conf.TransMsgInitializer;
 import com.cellulam.trans.msg.db.core.message.TransMessageSender;
+import com.trans.db.facade.TransMessageProcessor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 /**
  * trans configuration
@@ -20,17 +24,16 @@ import javax.sql.DataSource;
  * @date 2022-06-10 16:12
  */
 @Configuration
-@ComponentScan("com.cellulam.trans.db.spring.configuration")
+@Slf4j
 @EnableConfigurationProperties(SpringTransProperties.class)
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class TransMsgConfiguration {
 
     private DataSource dataSource;
 
-    @Value("spring.application.name")
+    @Value("${spring.application.name}")
     private String appName;
 
-    public TransMsgConfiguration(DataSource dataSource) {
+    public TransMsgConfiguration(@Autowired(required = false) DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -60,7 +63,28 @@ public class TransMsgConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public TransMessageSender transMessageSender() {
+    public TransMessageSender transMessageSender(TransConfiguration transConfiguration) {
+        this.startTransMsg(transConfiguration);
         return new TransMessageSender();
+    }
+
+    private void startTransMsg(TransConfiguration transConfiguration) {
+        TransMsgInitializer.init(transConfiguration);
+        this.registerProcessors();
+        TransMsgInitializer.start();
+        log.info("TransMsgInitializer start");
+    }
+
+    private void registerProcessors() {
+        List<TransMessageProcessor<?>> processors = ConsumerProcessorHolder.holder.getProcessors();
+
+        log.info("consumer processor initializer and processor size is {}", processors.size());
+        if (CollectionUtils.isEmpty(processors)) {
+            return;
+        }
+
+        for (TransMessageProcessor<?> processor : processors) {
+            TransMsgInitializer.registerConsumerProcessor(processor);
+        }
     }
 }

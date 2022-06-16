@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: member
+
+
+server:
+  port: 1877
+
+

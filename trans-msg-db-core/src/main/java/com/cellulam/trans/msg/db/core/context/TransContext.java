@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TransContext {
 
-    private static boolean initiated = false;
+    private static volatile boolean initiated = false;
 
     private TransContext() {
 

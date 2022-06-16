@@ -44,12 +44,16 @@ public class MessageConsumerReceiveProcessor extends AbstractMessageReceiveProce
             throw new TransMessageProcessException(String.format("Cannot find processor: %s, message: %s",
                     processorKey, transMessage));
         }
-
-        TransProcessResult result = processor.getProcessor().process(this.getSerializeSPI().deserialize(transMessage.getBody(), processor.getBodyClass()));
+        TransProcessResult result = TransProcessResult.FAILED;
+        try {
+            result = processor.getProcessor().process(this.getSerializeSPI().deserialize(transMessage.getBody(), processor.getBodyClass()));
+        } catch (Exception e) {
+            log.error(String.format("[transId=%s] Process fail", transMessage.getHeader().getTransId()), e);
+        }
         log.debug("[transId={}] Process Result: {}", transMessage.getHeader().getTransId(), result);
 
         //ACK
-        this.consumerMessageSender.send(this.getSource(),
+        this.consumerMessageSender.send(transMessage.getHeader().getSource(),
                 transMessage.getHeader().getTransType(),
                 this.buildAckMessage(transMessage, result));
 

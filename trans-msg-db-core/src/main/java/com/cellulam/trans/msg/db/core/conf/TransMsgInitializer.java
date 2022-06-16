@@ -38,8 +38,10 @@ public abstract class TransMsgInitializer {
 
         TransContext.init(configuration);
 
-        RepositoryFactory.getInstance(configuration.getRepositoryType())
-                .init(configuration.getDataSource());
+        if(configuration.getDataSource() != null) {
+            RepositoryFactory.getInstance(configuration.getRepositoryType())
+                    .init(configuration.getDataSource());
+        }
 
         dynamicConfigSPI = DynamicConfigFactory.getInstance(configuration.getDynamicConfigType());
     }

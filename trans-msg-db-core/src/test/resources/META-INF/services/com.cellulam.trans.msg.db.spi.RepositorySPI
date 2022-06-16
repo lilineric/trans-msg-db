@@ -1,2 +1,2 @@
 com.cellulam.trans.msg.db.core.test.spi.TestRepositorySPI
-com.cellulam.trans.msg.db.mysql.DbRepository
+com.cellulam.trans.msg.db.mysql.MySQLRepository

@@ -1,5 +1,6 @@
 package com.cellulam.trans.msg.db.sample.order.service;
 
+import com.cellulam.trans.db.sample.common.dto.OrderDto;
 import com.cellulam.trans.db.sample.common.enums.OrderStatus;
 import com.cellulam.trans.db.sample.common.utils.ThreadUtils;
 import com.cellulam.trans.db.sample.common.utils.UUIDUtils;
@@ -32,10 +33,22 @@ public class OrderService {
         order.setAmount(RandomUtils.nextLong(100, 50000));
 
         orderDao.insertOrder(order);
-        ThreadUtils.sleep(1000);
+        ThreadUtils.sleep(RandomUtils.nextLong(10, 1000));
         orderDao.updateStatus(order.getId(), OrderStatus.SUCCESS.name());
 
-        transMessageSender.send("order-success", order);
+        transMessageSender.send("success", this.buildDto(order));
         return order.getId();
+    }
+
+    private OrderDto buildDto(OrderBean orderBean) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(orderBean.getId());
+        orderDto.setUid(orderBean.getUid());
+        orderDto.setTitle(orderBean.getTitle());
+        orderDto.setStatus(orderBean.getStatus());
+        orderDto.setAmount(orderBean.getAmount());
+        orderDto.setCreated(orderBean.getCreated());
+        orderDto.setModified(orderBean.getModified());
+        return orderDto;
     }
 }

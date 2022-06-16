@@ -8,10 +8,6 @@ spring:
     url: jdbc:mysql://localhost:3306/order_db?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root123
-  trans:
-    msg:
-      message:
-        providerType: RabbitMQ
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml

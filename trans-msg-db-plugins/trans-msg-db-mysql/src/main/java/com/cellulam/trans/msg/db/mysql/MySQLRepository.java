@@ -20,11 +20,11 @@ import java.util.function.Consumer;
  * @author eric.li
  * @date 2022-06-13 22:23
  */
-public class DbRepository implements RepositorySPI {
+public class MySQLRepository implements RepositorySPI {
     private final TransactionDao transactionDao;
     private final BranchTransactionDao branchTransactionDao;
 
-    public DbRepository() {
+    public MySQLRepository() {
         this.transactionDao = new TransactionDaoImpl();
         this.branchTransactionDao = new BranchTransactionDaoImpl();
     }

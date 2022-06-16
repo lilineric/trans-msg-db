@@ -1,8 +1,7 @@
 trans-msg:
   kafka:
     bootstrap-servers: 127.0.0.1:9092
-    auto-create-topic: true
-    group-instance-id: order-1
+    group-instance-id: member-1
   dynamic:
     message:
       order:

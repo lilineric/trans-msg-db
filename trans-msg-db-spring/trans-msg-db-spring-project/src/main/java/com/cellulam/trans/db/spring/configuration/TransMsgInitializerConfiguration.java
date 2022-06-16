@@ -1,9 +1,10 @@
 package com.cellulam.trans.db.spring.configuration;
 
 import com.trans.db.facade.TransMessageProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,7 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022-06-16 12:43
  */
 @Configuration
-@AutoConfigureAfter(TransMsgConfiguration.class)
+@Slf4j
+@AutoConfigureBefore(TransMsgConfiguration.class)
 public class TransMsgInitializerConfiguration implements BeanPostProcessor {
 
     @Override

@@ -26,6 +26,7 @@ public class KafkaMQReceiver {
         this.messageProcessor = messageProcessor;
         this.consumer = new KafkaConsumer<>(buildKafkaConsumerProperties(properties));
         consumer.subscribe(topics, new KafkaConsumerRebalanceListener());
+        log.info("Subscribe topics: {}", topics);
     }
 
     public void start() {
@@ -34,6 +35,7 @@ public class KafkaMQReceiver {
     }
 
     private void start(final Consumer<String, String> consumer, final MessageProcessor messageProcessor) {
+        log.debug("Start listening topics: {}", consumer.listTopics());
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
             for (ConsumerRecord<String, String> record : records) {
