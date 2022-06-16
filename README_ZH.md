@@ -16,21 +16,6 @@
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
-生产方添加注解:
-```java
-@Transactional
-@TransMsgProducer
-public void produce() {
-    ...
-}
-```
-消费方添加注解:
-```java
-@TransMsgConsumer
-public void consume() {
-    ...
-}
-```
 ### trans-msg.yml 配置
 ```yaml
 trans-msg:
